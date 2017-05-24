@@ -1,19 +1,19 @@
-import React, { Component } from 'react'
+import React from 'react'
 
-// import MyMap from './MyMap'
-// import MyMap2 from './MyMap2'
+import Map from './Map'
 
-export default class MapContainer extends Component {
+const MapContainer = () => {
 
-  render () {
-    return (
 
-      // <MyMap  mapElement={ <div className='map-element' style={{ height: "400px"}}/> }
-      //         containerElement={ <div className='container-element' style={{ height: "400px"}}/> }/>
-      // <MyMap2 />
-      <div></div>
-    )
-  }
+
+  return (
+    <div>
+      <Map  initialCenter={ {lng: -105.7208812, lat: 40.3058035} }
+            />
+    </div>
+  )
 
 
 }
+
+export default MapContainer
