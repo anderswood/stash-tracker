@@ -1,8 +1,9 @@
 import React from 'react'
 import { withGoogleMap, GoogleMap, Marker } from 'react-google-maps'
 import DrawingManager from 'react-google-maps/lib/drawing/DrawingManager'
+import SearchBox from "react-google-maps/lib/places/SearchBox";
 
-const MyMap = withGoogleMap(() => {
+const MyMap = withGoogleMap(props => {
 
   google.maps.event.addListener(DrawingManager, 'circlecomplete', function(circle) {
     var radius = circle.getRadius();
@@ -17,7 +18,7 @@ const MyMap = withGoogleMap(() => {
 
   // drawingManager.setMap(GoogleMap);
 
-  let drawManagerDefaultOptions = {
+  const drawManagerDefaults = {
     drawingControl: true,
     drawingControlOptions: {
       position: google.maps.ControlPosition.TOP_CENTER,
@@ -54,9 +55,9 @@ const MyMap = withGoogleMap(() => {
         defaultCenter={{ lat:39.73915 , lng: -104.9847 }}
         defaultMapTypeId={'terrain'}>
 
-        <DrawingManager 
+        <DrawingManager
           defaultDrawingMode={google.maps.drawing.OverlayType.CIRCLE}
-          defaultOptions={drawManagerDefaultOptions}
+          defaultOptions={drawManagerDefaults}
         />
 
       </GoogleMap>
