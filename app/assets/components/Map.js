@@ -39,7 +39,16 @@ export default class Map extends Component {
     this.drawingManager.setMap(this.map);
 
     google.maps.event.addListener(this.map, 'zoom_changed', ()=> this.handleZoomChange())
+
+    google.maps.event.addListener(this.map, 'rightclick', ()=> console.log('thing changed'))
+
     google.maps.event.addListener(this.drawingManager, 'overlaycomplete', (event) => {
+
+
+      google.maps.event.addListener(thePath, 'set_at', function() {
+          console.log('set at listenr');
+        });
+
       if (event.type === 'polygon' || event.type === 'polyline') {
         this.retrieveOverlayCoordsFromMap(event)
       }
@@ -63,17 +72,57 @@ export default class Map extends Component {
   }
 
   retrieveOverlayCoordsFromMap(e) {
-    let updateState = Object.assign([], this.state.paths)
+    let updatePaths = Object.assign([], this.state.paths)
     let overlayPath = e.overlay.getPath().getArray().map((coordPair, i) => {
       return {lat: coordPair.lat(), lng: coordPair.lng()}
     });
 
-    updateState.push({type: e.type, coords: overlayPath})
-    this.setState({paths: updateState});
+    updatePaths.push({type: e.type, coords: overlayPath})
+    this.setState({paths: updatePaths});
   }
 
   drawOverlayCoordsOnMap() {
-    
+    let paths = Object.assign([], this.state.paths)
+    // let firstPath = this.state.paths[0]
+    let overlayCoordsArr = [{}]
+
+    paths.forEach((path) => {
+
+      console.log('pathObj: ', path);
+
+      let overlay;
+      let overlayCoordsArr = path.coords;
+
+      let polygonParams = {
+        paths: overlayCoordsArr,
+        editable: true,
+        draggable: true,
+        strokeColor: '#E4801C',
+        strokeOpacity: 0.8,
+        strokeWeight: 2,
+        fillColor: '#E4801C',
+        fillOpacity: 0.2
+      }
+
+      let polylineParams = {
+        path: overlayCoordsArr,
+        editable: true,
+        draggable: true,
+        geodesic: true,
+        strokeColor: '#E4801C',
+        strokeOpacity: 0.8,
+        strokeWeight: 2
+      }
+
+      if (path.type === 'polygon') {
+        overlay = new google.maps.Polygon(polygonParams);
+      } else if (path.type === 'polyline') {
+        overlay = new google.maps.Polyline(polylineParams);
+      }
+      overlay.setMap(this.map);
+
+    })
+
   }
 
   drawingManagerProps() {
