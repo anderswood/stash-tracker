@@ -5,7 +5,10 @@ import React, { Component } from 'react'
 export default class Map extends Component {
   constructor (props) {
     super(props)
-    this.state = { zoom: 13}
+    this.state = {
+      zoom: 13,
+      paths: []
+    }
   }
 
   static propTypes() {
@@ -36,22 +39,35 @@ export default class Map extends Component {
     this.marker = this.createMarker()
     this.infoWindow = this.createInfoWindow()
 
-    // have to define google maps event listeners here too
-    // because we can't add listeners on the map until its created
     google.maps.event.addListener(this.map, 'zoom_changed', ()=> this.handleZoomChange())
-
-    google.maps.event.addListener(this.drawingManager, 'overlaycomplete', function(event) {
-      // if (event.type == 'circle') {
-      //   var radius = event.overlay.getRadius();
-      // }
-      console.log(event.overlay.latLngs);
+    google.maps.event.addListener(this.drawingManager, 'overlaycomplete', (event) => {
+      // console.log(event.overlay);
+      // console.log(event.overlay.getPath().getArray());
+      this.retrievePathCoordsFromMap(event)
     });
+
+    google.maps.event.addListener(this.map, 'addfeature', (e) => {
+      // console.log();
+    })
 
   }
 
   // clean up event listeners when component unmounts
   componentDidUnMount() {
     google.maps.event.clearListeners(map, 'zoom_changed')
+  }
+
+  retrievePathCoordsFromMap(e) {
+    let overlayPath = [];
+    e.overlay.getPath().getArray().forEach((coordPair, i) => {
+      let lat = coordPair.lat()
+      let lng = coordPair.lng()
+      overlayPath[i] = {lat: lat, lng: lng}
+    });
+    console.log(overlayPath);
+    let newPaths = Object.assign([], this.state.paths, overlayPath);
+    // newPaths.push(overlayPath)
+    this.setState({paths: newPaths});
   }
 
   drawingManagerProps() {
