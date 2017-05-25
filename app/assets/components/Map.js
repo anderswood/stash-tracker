@@ -24,55 +24,61 @@ export default class Map extends Component {
                 style={{ height: "400px"}}>
           </div>
         <div>after the map</div>
+        <button onClick={ () => this.storeCoordsToLocalStorage() }>SET COORDS</button>
+        <button onClick={ () => this.retrieveCoordsFromLocalStorage() }>RETRIEVE COORDS</button>
+        <button onClick={ () => this.drawOverlayCoordsOnMap() }>DRAW COORDS</button>
       </div>
     )
   }
 
   componentDidMount() {
-    // create the map, marker and infoWindow after the component has
-    // been rendered because we need to manipulate the DOM for Google =(
+
     this.map = this.createMap()
 
     this.drawingManager = new google.maps.drawing.DrawingManager(this.drawingManagerProps());
     this.drawingManager.setMap(this.map);
 
-    this.marker = this.createMarker()
-    this.infoWindow = this.createInfoWindow()
-
     google.maps.event.addListener(this.map, 'zoom_changed', ()=> this.handleZoomChange())
     google.maps.event.addListener(this.drawingManager, 'overlaycomplete', (event) => {
-      // console.log(event.overlay);
-      // console.log(event.overlay.getPath().getArray());
-      this.retrievePathCoordsFromMap(event)
+      if (event.type === 'polygon' || event.type === 'polyline') {
+        this.retrieveOverlayCoordsFromMap(event)
+      }
     });
 
-    google.maps.event.addListener(this.map, 'addfeature', (e) => {
-      // console.log();
-    })
+    // this.marker = this.createMarker()
+    // this.infoWindow = this.createInfoWindow()
 
   }
 
-  // clean up event listeners when component unmounts
   componentDidUnMount() {
     google.maps.event.clearListeners(map, 'zoom_changed')
   }
 
-  retrievePathCoordsFromMap(e) {
-    let overlayPath = [];
-    e.overlay.getPath().getArray().forEach((coordPair, i) => {
-      let lat = coordPair.lat()
-      let lng = coordPair.lng()
-      overlayPath[i] = {lat: lat, lng: lng}
+  storeCoordsToLocalStorage() {
+    localStorage.setItem('paths', JSON.stringify(this.state.paths))
+  }
+
+  retrieveCoordsFromLocalStorage() {
+    this.setState({paths: JSON.parse(localStorage.getItem('paths'))})
+  }
+
+  retrieveOverlayCoordsFromMap(e) {
+    let updateState = Object.assign([], this.state.paths)
+    let overlayPath = e.overlay.getPath().getArray().map((coordPair, i) => {
+      return {lat: coordPair.lat(), lng: coordPair.lng()}
     });
-    console.log(overlayPath);
-    let newPaths = Object.assign([], this.state.paths, overlayPath);
-    // newPaths.push(overlayPath)
-    this.setState({paths: newPaths});
+
+    updateState.push({type: e.type, coords: overlayPath})
+    this.setState({paths: updateState});
+  }
+
+  drawOverlayCoordsOnMap() {
+    
   }
 
   drawingManagerProps() {
     return {
-      drawingMode: google.maps.drawing.OverlayType.MARKER,
+      drawingMode: google.maps.drawing.OverlayType.POLYGON,
       drawingControl: true,
       drawingControlOptions: {
         position: google.maps.ControlPosition.TOP_CENTER,
