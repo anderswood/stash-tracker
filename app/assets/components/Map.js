@@ -11,14 +11,9 @@ export default class Map extends Component {
     }
   }
 
-  static propTypes() {
-   	initialCenter: React.PropTypes.objectOf(React.PropTypes.number).isRequired
-  }
-
   render() {
     return (
       <div className='GMap'>
-        <div>Hello World</div>
           <div  className='GMap-canvas'
                 ref="mapCanvas"
                 style={{ height: "400px"}}>
@@ -31,8 +26,11 @@ export default class Map extends Component {
     )
   }
 
-  componentDidMount() {
+  static propTypes() {
+    initialCenter: React.PropTypes.objectOf(React.PropTypes.number).isRequired
+  }
 
+  componentDidMount() {
     this.map = this.createMap()
 
     this.drawingManager = new google.maps.drawing.DrawingManager(this.drawingManagerProps());
@@ -40,15 +38,7 @@ export default class Map extends Component {
 
     google.maps.event.addListener(this.map, 'zoom_changed', ()=> this.handleZoomChange())
 
-    google.maps.event.addListener(this.map, 'rightclick', ()=> console.log('thing changed'))
-
     google.maps.event.addListener(this.drawingManager, 'overlaycomplete', (event) => {
-
-
-      google.maps.event.addListener(thePath, 'set_at', function() {
-          console.log('set at listenr');
-        });
-
       if (event.type === 'polygon' || event.type === 'polyline') {
         this.retrieveOverlayCoordsFromMap(event)
       }
