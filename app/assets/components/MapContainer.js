@@ -1,15 +1,25 @@
-import React, { Component } from 'react'
+import React from 'react'
 
-import MyMap from './MyMap'
+import Map from './Map'
 
-export default class MapContainer extends Component {
+const MapContainer = () => {
 
-  render () {
-    return (
-      <MyMap  mapElement={ <div className='map-element' style={{ height: "400px"}}/> }
-              containerElement={ <div className='container-element' style={{ height: "400px"}}/> }/>
-    )
-  }
+
+  // function setCoords (paths) {
+  //   console.log(paths);
+  //   console.log('set state func');
+  //   localStorage.setItem('paths', JSON.stringify(paths))
+  // }
+
+
+  return (
+    <div>
+      <Map  initialCenter={ {lng: -105.7208812, lat: 40.3058035} }
+          />
+    </div>
+  )
 
 
 }
+
+export default MapContainer

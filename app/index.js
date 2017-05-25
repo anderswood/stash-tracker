@@ -4,4 +4,5 @@ import { render } from 'react-dom'
 import App from '../app/assets/components/App'
 
 
-render(<App />, document.getElementById('main'))
+render(<App />,
+  document.getElementById('main'))
