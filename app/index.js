@@ -1,8 +1,21 @@
-import React from 'react'
-import { render } from 'react-dom'
+import React from 'react';
+import { render } from 'react-dom';
+import { createStore, combineReducers } from 'redux';
+import { Provider } from 'react-redux';
+// import { ConnectedRouter } from 'react-router-redux';
+// import createHistory from 'history/createBrowserHistory';
+// import { Route } from 'react-router-dom'
 
-import App from './components/App/App'
+import { rootReducer } from './reducers/index.js';
+import App from './components/App';
+import './assets/styles/app.scss';
+
+const devTools = window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__();
+const store = createStore(rootReducer, devTools);
 
 
-render(<App />,
+render(
+  <Provider store={ store }>
+    <App />
+  </Provider>,
   document.getElementById('main'))

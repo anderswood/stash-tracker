@@ -1,12 +1,12 @@
 import React from 'react'
 
-import Map from '../Map/Map'
+import MapTile from './MapTile'
 
 const MapContainer = () => {
 
   return (
     <div>
-      <Map  initialCenter={ {lng: -105.7208812, lat: 40.3058035} }
+      <MapTile  initialCenter={ {lng: -105.7208812, lat: 40.3058035} }
           />
     </div>
   )
