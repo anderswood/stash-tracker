@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
 
-export default class Map extends Component {
+class MapTile extends Component {
   constructor (props) {
     super(props)
+    console.log(this.props);
     this.state = {
       zoom: 13,
       paths: []
@@ -67,9 +68,14 @@ export default class Map extends Component {
 
     updatePaths.push({type: e.type, coords: overlayPath})
     this.setState({paths: updatePaths});
+
+    console.log(this.props);
+    let { handleOverlayAdd } = this.props
+    handleOverlayAdd(updatePaths)
   }
 
   drawOverlayCoordsOnMap() {
+
     let paths = Object.assign([], this.state.paths)
     // let firstPath = this.state.paths[0]
     let overlayCoordsArr = [{}]
@@ -171,3 +177,5 @@ export default class Map extends Component {
     })
   }
 }
+
+export default MapTile;
