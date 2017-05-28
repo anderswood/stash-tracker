@@ -1,7 +1,5 @@
 import React, { Component } from 'react'
 
-// import MapContainer from './MapContainer'
-
 export default class Map extends Component {
   constructor (props) {
     super(props)

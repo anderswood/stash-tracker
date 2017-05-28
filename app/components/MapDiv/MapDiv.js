@@ -1,16 +1,8 @@
 import React from 'react'
 
-import Map from './Map'
+import Map from '../Map/Map'
 
 const MapContainer = () => {
-
-
-  // function setCoords (paths) {
-  //   console.log(paths);
-  //   console.log('set state func');
-  //   localStorage.setItem('paths', JSON.stringify(paths))
-  // }
-
 
   return (
     <div>
