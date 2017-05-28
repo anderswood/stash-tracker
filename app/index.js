@@ -1,7 +1,7 @@
 import React from 'react'
 import { render } from 'react-dom'
 
-import App from '../app/assets/components/App'
+import App from './components/App/App'
 
 
 render(<App />,
