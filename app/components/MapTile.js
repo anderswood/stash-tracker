@@ -20,15 +20,12 @@ class MapTile extends Component {
           <div  className='GMap-canvas'
                 ref="mapCanvas">
           </div>
-        <button onClick={ () => this.drawOverlayCoordsOnMap() }>DRAW COORDS</button>
+        <button onClick={ () => this.drawOverlayCoordsOnMap(this.props.overlayList) }>DRAW COORDS</button>
         <button onClick={ () => this.clearMap() }>Wipe Map</button>
       </div>
     )
   }
 
-  static propTypes() {
-    initialCenter: React.PropTypes.objectOf(React.PropTypes.number).isRequired
-  }
 
   componentDidMount() {
     this.map = this.createMap()
@@ -65,18 +62,18 @@ class MapTile extends Component {
     this.setState({paths: updatePaths});
   }
 
-  drawOverlayCoordsOnMap() {
-    this.props.overlayList.forEach((path) => {
+  drawOverlayCoordsOnMap(overlayArr) {
+    overlayArr.forEach((path) => {
       let overlay;
 
       if (path.type === 'polygon') {
         let polygonParams = this.state.polygonInputs(path.coords)
-        overlay = new google.maps.Polygon(polygonParams);
 
+        overlay = new google.maps.Polygon(polygonParams);
       } else if (path.type === 'polyline') {
         let polylineParams = this.state.polylineInputs(path.coords)
-        overlay = new google.maps.Polyline(polylineParams);
 
+        overlay = new google.maps.Polyline(polylineParams);
       }
       overlay.setMap(this.map);
     })
@@ -105,27 +102,32 @@ class MapTile extends Component {
     )
   }
 
-  createMarker() {
-    return new google.maps.Marker({
-      position: this.mapCenter(),
-      map: this.map
-    })
-	}
+  // createMarker() {
+  //   return new google.maps.Marker({
+  //     position: this.mapCenter(),
+  //     map: this.map
+  //   })
+	// }
 
-  createInfoWindow() {
-    let contentString = "<div class='InfoWindow'>I'm a Window that contains Info Yay</div>"
-    return new google.maps.InfoWindow({
-      map: this.map,
-      anchor: this.marker,
-      content: contentString
-    })
-  }
+  // createInfoWindow() {
+  //   let contentString = "<div class='InfoWindow'>I'm a Window that contains Info Yay</div>"
+  //   return new google.maps.InfoWindow({
+  //     map: this.map,
+  //     anchor: this.marker,
+  //     content: contentString
+  //   })
+  // }
 
   handleZoomChange() {
     this.setState({
       zoom: this.map.getZoom()
     })
   }
+
+  // static propTypes() {
+  //   initialCenter: React.PropTypes.objectOf(React.PropTypes.number).isRequired
+  // }
+
 }
 
 export default MapTile;
