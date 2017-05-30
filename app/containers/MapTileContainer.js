@@ -6,7 +6,6 @@ import MapTile from '../components/MapTile';
 const mapDispatchToProps = (dispatch) => {
   return {
     handleOverlayAdd: (overlay) => {
-      console.log('in mapp container');
       dispatch(addOverlay(overlay))
     }
   }

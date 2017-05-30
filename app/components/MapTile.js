@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
 
+import { mapSettings } from './mapSettings'
+
 class MapTile extends Component {
   constructor (props) {
     super(props)
-    console.log(this.props);
     this.state = {
       zoom: 13,
       paths: []
@@ -14,13 +15,13 @@ class MapTile extends Component {
     return (
       <div className='GMap'>
           <div  className='GMap-canvas'
-                ref="mapCanvas"
-                style={{ height: "400px"}}>
+                ref="mapCanvas">
           </div>
         <div>after the map</div>
         <button onClick={ () => this.storeCoordsToLocalStorage() }>SET COORDS</button>
         <button onClick={ () => this.retrieveCoordsFromLocalStorage() }>RETRIEVE COORDS</button>
         <button onClick={ () => this.drawOverlayCoordsOnMap() }>DRAW COORDS</button>
+        <button onClick={ () => this.clearMap() }>Wipe Map</button>
       </div>
     )
   }
@@ -66,12 +67,19 @@ class MapTile extends Component {
       return {lat: coordPair.lat(), lng: coordPair.lng()}
     });
 
-    updatePaths.push({type: e.type, coords: overlayPath})
-    this.setState({paths: updatePaths});
+    let newOverlay = {type: e.type, coords: overlayPath}
+    this.props.handleOverlayAdd(newOverlay)
 
-    console.log(this.props);
-    let { handleOverlayAdd } = this.props
-    handleOverlayAdd(updatePaths)
+    updatePaths.push(e.overlay)
+    this.setState({paths: updatePaths});
+  }
+
+  clearMap() {
+    this.state.paths.forEach( overlay => {
+      overlay.setMap(null)
+    })
+
+    this.setState({paths: []})
   }
 
   drawOverlayCoordsOnMap() {

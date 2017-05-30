@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 
-import StashList from './StashList'
+import StashListContainer from '../containers/StashListContainer'
 import MapDiv from './MapDiv'
-import NewStash from './NewStash'
+import NewStashContainer from '../containers/NewStashContainer'
 
 export default class App extends Component {
 
@@ -13,9 +13,15 @@ export default class App extends Component {
         <header>
           <h1>StashTracker</h1>
         </header>
-        <MapDiv />
-        <NewStash />
-        <StashList />
+        <section id='content-div'>
+          <section id='map-stash-div'>
+            <MapDiv />
+            <NewStashContainer />
+          </section>
+          <section id='list-div'>
+            <StashListContainer />
+          </section>
+        </section>
       </div>
     )
   }

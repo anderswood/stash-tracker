@@ -1,9 +1,42 @@
-@import './map.scss';
+@import './mapTile.scss';
 @import './mapDiv.scss';
 @import './newStash.scss';
 @import './stashCard.scss';
 @import './stashList.scss';
+@import './variables.scss';
+
+// Typography
+h1, h2, h3, h4 {
+  color: $COLOR_WHITE;
+}
 
 h1 {
-  color: magenta;
+  margin: 0;
+  padding: 15px;
+}
+
+header {
+  background: $COLOR_BLUE;
+}
+
+
+#content-div {
+  // display: flex;
+  // justify-content: center;
+}
+
+#map-stash-div {
+  display: inline-block;
+  border: 1px solid blue;
+  width: calc(100% - 235px);
+}
+
+#list-div {
+  display: inline-block;
+  width: $list_width;
+  height: 100vh;
+  vertical-align: top;
+  background-color: $COLOR_LT_BLUE;
+  border: 1px solid red;
+  text-align: center;
 }
