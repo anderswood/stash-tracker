@@ -3,6 +3,12 @@ import { connect } from 'react-redux';
 import { addOverlay } from '../actions/index';
 import MapTile from '../components/MapTile';
 
+const mapStateToProps = (state) => {
+  return {
+    overlayList: state.overlays
+  }
+}
+
 const mapDispatchToProps = (dispatch) => {
   return {
     handleOverlayAdd: (overlay) => {
@@ -12,4 +18,4 @@ const mapDispatchToProps = (dispatch) => {
 
 }
 
-export default connect(null, mapDispatchToProps)(MapTile)
+export default connect(mapStateToProps, mapDispatchToProps)(MapTile)
