@@ -1,13 +1,16 @@
 import React, { Component } from 'react'
 
-import { mapSettings } from './mapSettings'
+import {polygonParams, polylineParams, drawmingMgrProps} from './mapSettings'
 
 class MapTile extends Component {
   constructor (props) {
     super(props)
     this.state = {
       zoom: 13,
-      paths: []
+      paths: [],
+      drawingManagerProps: drawmingMgrProps(),
+      polygonInputs: (e) => polygonParams(e),
+      polylineInputs: (e) => polylineParams(e),
     }
   }
 
@@ -17,9 +20,6 @@ class MapTile extends Component {
           <div  className='GMap-canvas'
                 ref="mapCanvas">
           </div>
-        <div>after the map</div>
-        <button onClick={ () => this.storeCoordsToLocalStorage() }>SET COORDS</button>
-        <button onClick={ () => this.retrieveCoordsFromLocalStorage() }>RETRIEVE COORDS</button>
         <button onClick={ () => this.drawOverlayCoordsOnMap() }>DRAW COORDS</button>
         <button onClick={ () => this.clearMap() }>Wipe Map</button>
       </div>
@@ -32,8 +32,7 @@ class MapTile extends Component {
 
   componentDidMount() {
     this.map = this.createMap()
-
-    this.drawingManager = new google.maps.drawing.DrawingManager(this.drawingManagerProps());
+    this.drawingManager = new google.maps.drawing.DrawingManager(this.state.drawingManagerProps);
     this.drawingManager.setMap(this.map);
 
     google.maps.event.addListener(this.map, 'zoom_changed', ()=> this.handleZoomChange())
@@ -53,14 +52,6 @@ class MapTile extends Component {
     google.maps.event.clearListeners(map, 'zoom_changed')
   }
 
-  storeCoordsToLocalStorage() {
-    localStorage.setItem('paths', JSON.stringify(this.state.paths))
-  }
-
-  retrieveCoordsFromLocalStorage() {
-    this.setState({paths: JSON.parse(localStorage.getItem('paths'))})
-  }
-
   retrieveOverlayCoordsFromMap(e) {
     let updatePaths = Object.assign([], this.state.paths)
     let overlayPath = e.overlay.getPath().getArray().map((coordPair, i) => {
@@ -74,77 +65,28 @@ class MapTile extends Component {
     this.setState({paths: updatePaths});
   }
 
+  drawOverlayCoordsOnMap() {
+    this.props.overlayList.forEach((path) => {
+      let overlay;
+
+      if (path.type === 'polygon') {
+        let polygonParams = this.state.polygonInputs(path.coords)
+        overlay = new google.maps.Polygon(polygonParams);
+
+      } else if (path.type === 'polyline') {
+        let polylineParams = this.state.polylineInputs(path.coords)
+        overlay = new google.maps.Polyline(polylineParams);
+
+      }
+      overlay.setMap(this.map);
+    })
+  }
+
   clearMap() {
     this.state.paths.forEach( overlay => {
       overlay.setMap(null)
     })
-
     this.setState({paths: []})
-  }
-
-  drawOverlayCoordsOnMap() {
-
-    let paths = Object.assign([], this.state.paths)
-    // let firstPath = this.state.paths[0]
-    let overlayCoordsArr = [{}]
-
-    paths.forEach((path) => {
-
-      console.log('pathObj: ', path);
-
-      let overlay;
-      let overlayCoordsArr = path.coords;
-
-      let polygonParams = {
-        paths: overlayCoordsArr,
-        editable: true,
-        draggable: true,
-        strokeColor: '#E4801C',
-        strokeOpacity: 0.8,
-        strokeWeight: 2,
-        fillColor: '#E4801C',
-        fillOpacity: 0.2
-      }
-
-      let polylineParams = {
-        path: overlayCoordsArr,
-        editable: true,
-        draggable: true,
-        geodesic: true,
-        strokeColor: '#E4801C',
-        strokeOpacity: 0.8,
-        strokeWeight: 2
-      }
-
-      if (path.type === 'polygon') {
-        overlay = new google.maps.Polygon(polygonParams);
-      } else if (path.type === 'polyline') {
-        overlay = new google.maps.Polyline(polylineParams);
-      }
-      overlay.setMap(this.map);
-
-    })
-
-  }
-
-  drawingManagerProps() {
-    return {
-      drawingMode: google.maps.drawing.OverlayType.POLYGON,
-      drawingControl: true,
-      drawingControlOptions: {
-        position: google.maps.ControlPosition.TOP_CENTER,
-        drawingModes: ['marker', 'circle', 'polygon', 'polyline', 'rectangle']
-      },
-      markerOptions: {icon: 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png'},
-      polygonOptions: {
-        fillColor: '#ffff00',
-        fillOpacity: 1,
-        strokeWeight: 5,
-        clickable: true,
-        editable: true,
-        zIndex: 1
-      }
-    }
   }
 
   createMap() {
