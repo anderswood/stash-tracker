@@ -29,3 +29,10 @@ export const removeStash = (stash) => {
     stash
   }
 }
+
+export const addMap = (map) => {
+  return {
+    type: 'ADD_MAP',
+    map
+  }
+}

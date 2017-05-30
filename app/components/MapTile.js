@@ -11,6 +11,8 @@ class MapTile extends Component {
       drawingManagerProps: drawmingMgrProps(),
       polygonInputs: (e) => polygonParams(e),
       polylineInputs: (e) => polylineParams(e),
+      thisMap: '',
+      thisMgr: ''
     }
   }
 
@@ -22,15 +24,14 @@ class MapTile extends Component {
           </div>
         <button onClick={ () => this.drawOverlayCoordsOnMap(this.props.overlayList) }>DRAW COORDS</button>
         <button onClick={ () => this.clearMap() }>Wipe Map</button>
+        <button onClick={ () => this.saveMap() }>save map</button>
+        
       </div>
     )
   }
 
-
   componentDidMount() {
-    this.map = this.createMap()
-    this.drawingManager = new google.maps.drawing.DrawingManager(this.state.drawingManagerProps);
-    this.drawingManager.setMap(this.map);
+    this.initMap();
 
     google.maps.event.addListener(this.map, 'zoom_changed', ()=> this.handleZoomChange())
 
@@ -47,6 +48,12 @@ class MapTile extends Component {
 
   componentDidUnMount() {
     google.maps.event.clearListeners(map, 'zoom_changed')
+  }
+
+  initMap() {
+    this.map = this.createMap();
+    this.drawingManager = new google.maps.drawing.DrawingManager(this.state.drawingManagerProps);
+    this.drawingManager.setMap(this.map);
   }
 
   retrieveOverlayCoordsFromMap(e) {
@@ -80,10 +87,15 @@ class MapTile extends Component {
   }
 
   clearMap() {
-    this.state.paths.forEach( overlay => {
-      overlay.setMap(null)
-    })
+    // this.state.paths.forEach( overlay => {
+    //   overlay.setMap(null)
+    // })
+    this.initMap()
     this.setState({paths: []})
+  }
+
+  saveMap() {
+
   }
 
   createMap() {
@@ -102,6 +114,12 @@ class MapTile extends Component {
     )
   }
 
+  handleZoomChange() {
+    this.setState({
+      zoom: this.map.getZoom()
+    })
+  }
+
   // createMarker() {
   //   return new google.maps.Marker({
   //     position: this.mapCenter(),
@@ -117,12 +135,6 @@ class MapTile extends Component {
   //     content: contentString
   //   })
   // }
-
-  handleZoomChange() {
-    this.setState({
-      zoom: this.map.getZoom()
-    })
-  }
 
   // static propTypes() {
   //   initialCenter: React.PropTypes.objectOf(React.PropTypes.number).isRequired

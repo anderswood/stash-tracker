@@ -17,6 +17,17 @@ class NewStash extends Component {
     handleStashAdd(overlayList, this.state.name, this.state.lastVisited, this.state.description);
     handleClearOverlays();
     // MapTile.clearMap();
+    this.clearState();
+  }
+
+  handleReset() {
+    //clear map
+    
+
+    this.clearState();
+  }
+
+  clearState() {
     this.setState({
       name: '',
       lastVisited: '',
@@ -24,21 +35,10 @@ class NewStash extends Component {
     })
   }
 
-  handleDelete() {
-
-  }
-
   render() {
     return(
       <section id='new-stash-div'>
         <h2>New Stash</h2>
-        <label>
-          <svg  id='delete-new-stash'
-                onClick={() => {console.log('delete clicked!')}}
-                fill="#FFF" width="45" height="45" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 100 100">
-            <path d="M52.8,50l21.6,21.6l-2.8,2.8L50,52.8L28.4,74.4l-2.8-2.8L47.2,50L25.6,28.4l2.8-2.8L50,47.2l21.6-21.6l2.8,2.8L52.8,50z"></path>
-          </svg>
-        </label>
         <form className='new-stash-form'>
           <h3 className='input-label stash-name'>
             <label htmlFor='stash-name'>Stash/Zone Name: </label>
@@ -66,8 +66,15 @@ class NewStash extends Component {
             </textarea>
           </h3>
         </form>
-        <div onClick={() => this.handleSave() }>
-          <h3>Save</h3>
+        <div id='reset-save-container'>
+          <div  id='reset-div'
+            onClick={() => this.handleReset()}>
+            <h3>Reset</h3>
+          </div>
+          <div  id='save-div'
+            onClick={() => this.handleSave() }>
+            <h3>Save</h3>
+          </div>
         </div>
       </section>
     )

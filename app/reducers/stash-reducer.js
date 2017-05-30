@@ -8,6 +8,7 @@ export const stashes = (state=[], action) => {
       stashObj.overlays = action.overlayList;
       stashObj.lastVisited = action.lastVisited;
       stashObj.description = action.description;
+      stashObj.id = Date.now();
 
       return [...state, stashObj];
 
