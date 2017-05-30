@@ -7,10 +7,19 @@ export const addOverlay = (overlay) => {
   }
 }
 
-export const addStash = (stash) => {
+export const clearOverlaysFromStore = () => {
+  return {
+    type: 'CLEAR_OVERLAYS_FROM_STORE'
+  }
+}
+
+export const addStash = (overlayList, stashName, lastVisited, description) => {
   return {
     type: 'ADD_STASH',
-    stash
+    overlayList,
+    stashName,
+    lastVisited,
+    description
   }
 }
 

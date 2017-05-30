@@ -1,9 +1,15 @@
 import React from 'react'
 
-const StashCard =(props) => {
+const StashCard =({ stashData }) => {
+
+  console.log(stashData.name);
+  console.log(stashData);
 
 return (
-  <div>stash card info</div>
+  <div className='card'>
+    <h3>{ stashData.name }</h3>
+    <h4>{ stashData.lastVisited }</h4>
+  </div>
 )
 
 }

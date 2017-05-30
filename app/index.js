@@ -6,7 +6,7 @@ import { Provider } from 'react-redux';
 // import createHistory from 'history/createBrowserHistory';
 // import { Route } from 'react-router-dom'
 
-import { rootReducer } from './reducers/index.js';
+import { rootReducer } from './reducers/index';
 import App from './components/App';
 import './assets/styles/app.scss';
 
