@@ -16,18 +16,15 @@ class NewStash extends Component {
     let { handleStashAdd, handleClearOverlays, overlayList } = this.props;
     handleStashAdd(overlayList, this.state.name, this.state.lastVisited, this.state.description);
     handleClearOverlays();
-    // MapTile.clearMap();
     this.clearState();
   }
 
   handleReset() {
-    //clear map
-    
-
     this.clearState();
   }
 
   clearState() {
+    this.props.handleClearMap()
     this.setState({
       name: '',
       lastVisited: '',

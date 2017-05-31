@@ -1,18 +1,18 @@
 import React, { Component } from 'react'
 
 import {polygonParams, polylineParams, drawmingMgrProps} from './mapSettings'
+// import TestFile from './test'
+import NewStashContainer from '../containers/NewStashContainer'
+import StashListContainer from '../containers/StashListContainer'
 
 class MapTile extends Component {
   constructor (props) {
     super(props)
     this.state = {
       zoom: 13,
-      paths: [],
       drawingManagerProps: drawmingMgrProps(),
       polygonInputs: (e) => polygonParams(e),
       polylineInputs: (e) => polylineParams(e),
-      thisMap: '',
-      thisMgr: ''
     }
   }
 
@@ -25,7 +25,13 @@ class MapTile extends Component {
         <button onClick={ () => this.drawOverlayCoordsOnMap(this.props.overlayList) }>DRAW COORDS</button>
         <button onClick={ () => this.clearMap() }>Wipe Map</button>
         <button onClick={ () => this.saveMap() }>save map</button>
-        
+        <div>
+          <NewStashContainer handleClearMap={ this.clearMap.bind(this) } />
+        </div>
+        <div>
+          <StashListContainer handleClearMap={ this.clearMap.bind(this) }
+                              handleAddOverlays={ this.drawOverlayCoordsOnMap.bind(this) }/>
+        </div>
       </div>
     )
   }
@@ -48,6 +54,7 @@ class MapTile extends Component {
 
   componentDidUnMount() {
     google.maps.event.clearListeners(map, 'zoom_changed')
+    google.maps.event.clearListeners(drawingManager, 'overlaycomplete')
   }
 
   initMap() {
@@ -57,28 +64,23 @@ class MapTile extends Component {
   }
 
   retrieveOverlayCoordsFromMap(e) {
-    let updatePaths = Object.assign([], this.state.paths)
-    let overlayPath = e.overlay.getPath().getArray().map((coordPair, i) => {
-      return {lat: coordPair.lat(), lng: coordPair.lng()}
-    });
-
-    let newOverlay = {type: e.type, coords: overlayPath}
+    let newOverlay = {overlayType: e.type, overlayRaw: e.overlay}
     this.props.handleOverlayAdd(newOverlay)
-
-    updatePaths.push(e.overlay)
-    this.setState({paths: updatePaths});
   }
 
   drawOverlayCoordsOnMap(overlayArr) {
     overlayArr.forEach((path) => {
       let overlay;
+      let overlayCoords = path.overlayRaw.getPath().getArray().map((coordPair, i) => {
+        return {lat: coordPair.lat(), lng: coordPair.lng()}
+      });
 
-      if (path.type === 'polygon') {
-        let polygonParams = this.state.polygonInputs(path.coords)
+      if (path.overlayType === 'polygon') {
+        let polygonParams = this.state.polygonInputs(overlayCoords)
 
         overlay = new google.maps.Polygon(polygonParams);
-      } else if (path.type === 'polyline') {
-        let polylineParams = this.state.polylineInputs(path.coords)
+      } else if (path.overlayType === 'polyline') {
+        let polylineParams = this.state.polylineInputs(overlayCoords)
 
         overlay = new google.maps.Polyline(polylineParams);
       }
@@ -87,15 +89,10 @@ class MapTile extends Component {
   }
 
   clearMap() {
-    // this.state.paths.forEach( overlay => {
-    //   overlay.setMap(null)
-    // })
-    this.initMap()
-    this.setState({paths: []})
-  }
-
-  saveMap() {
-
+    this.props.overlayList.forEach( overlayObj => {
+      overlayObj.overlayRaw.setMap(null)
+    })
+    // this.initMap()
   }
 
   createMap() {

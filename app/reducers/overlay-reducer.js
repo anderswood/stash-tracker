@@ -5,6 +5,9 @@ export const overlays = (state = [], action) => {
     case 'ADD_OVERLAY':
       return [...state, action.overlay]
 
+    case 'RESET_OVERLAYS':
+      return [...action.overlayList]
+
     case 'CLEAR_OVERLAYS_FROM_STORE':
       return [];
 

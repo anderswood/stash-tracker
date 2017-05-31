@@ -1,10 +1,14 @@
 import React from 'react'
-import StashCard from './StashCard'
+import StashCardContainer from '../containers/StashCardContainer.js'
 
 const StashList = (props) => {
 
+  // console.log(props);
+
   const stashListArr = props.stashList.map( (stash, i) => {
-    return <StashCard stashData={ stash } 
+    return <StashCardContainer stashData={ stash }
+                      resetMap={ props.handleClearMap }
+                      drawOverlays={ props.handleAddOverlays }
                       key={ i }/>
   })
 
