@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 
-import StashListContainer from '../containers/StashListContainer'
+// import StashListContainer from '../containers/StashListContainer'
 import MapDiv from './MapDiv'
-import NewStashContainer from '../containers/NewStashContainer'
+// import NewStashContainer from '../containers/NewStashContainer'
 
 export default class App extends Component {
 
@@ -16,10 +16,9 @@ export default class App extends Component {
         <section id='content-div'>
           <section id='map-stash-div'>
             <MapDiv />
-            <NewStashContainer />
           </section>
           <section id='list-div'>
-            <StashListContainer />
+            {/* <StashListContainer /> */}
           </section>
         </section>
       </div>

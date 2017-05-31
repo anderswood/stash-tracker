@@ -7,3 +7,13 @@
 #new-stash-div h2 {
   text-align: center;
 }
+
+#reset-save-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+#reset-div, #save-div {
+  border: 1px solid $button_outline;
+  background: $COLOR_LT_BLUE;
+}

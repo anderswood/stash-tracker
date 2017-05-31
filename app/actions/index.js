@@ -7,6 +7,13 @@ export const addOverlay = (overlay) => {
   }
 }
 
+export const resetOverlays = (overlayList) => {
+  return {
+    type: 'RESET_OVERLAYS',
+    overlayList
+  }
+}
+
 export const clearOverlaysFromStore = () => {
   return {
     type: 'CLEAR_OVERLAYS_FROM_STORE'
@@ -27,5 +34,12 @@ export const removeStash = (stash) => {
   return {
     type: 'REMOVE_STASH',
     stash
+  }
+}
+
+export const addMap = (map) => {
+  return {
+    type: 'ADD_MAP',
+    map
   }
 }
