@@ -7,6 +7,20 @@ export const addOverlay = (overlay) => {
   }
 }
 
+export const addOverlays = (overlayList) => {
+  return {
+    type: 'ADD_OVERLAYS',
+    overlayList
+  }
+}
+
+export const editOverlay = (path) => {
+  return {
+    type: 'EDIT_OVERLAY',
+    path
+  }
+}
+
 export const resetOverlays = (overlayList) => {
   return {
     type: 'RESET_OVERLAYS',

@@ -79,6 +79,7 @@ class MapTile extends Component {
   }
 
   drawOverlayCoordsOnMap(overlayArr) {
+    this.props.handleOverlaysAdd(overlayArr)
     overlayArr.forEach(path => {
       let overlay;
 
@@ -92,13 +93,23 @@ class MapTile extends Component {
         overlay = new google.maps.Polyline(polylineParams);
       }
       //add event listener on click, trigger editOverlay function
+      google.maps.event.addListener(overlay.getPath(), 'insert_at', (e) => {
+        console.log('set/insert');
+        this.editOverlay(path)
+      })
+
+        // google.maps.event.addListener(overlay.getPath(), 'insert_at', (e) => {
+        //   console.log('insert_at');
+        // })
+
       overlay.setMap(this.map);
     })
   }
 
-  editOverlay() {
-    console.log('in edit overlay');
-    //edit overlay in store (replace previous one), then the save will trigger the stash to be updated
+  editOverlay(path) {
+    console.log(path.overlayID);
+    // this.props.handleEditOverlay(path);
+
   }
 
   clearMap() {
