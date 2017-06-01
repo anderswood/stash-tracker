@@ -1,24 +1,44 @@
 import React from 'react'
 
-const StashCard =({ stashData, resetMap, drawOverlays, handleOverlayReset }) => {
+const StashCard =(props) => {
+  let  {
+    stashData,
+    resetMap,
+    drawOverlays,
+    handleOverlayReset,
+    handleClearOverlays,
+    handleRemoveStash,
+    handleActivateStash,
+    handleDeactivateStash,
+    activeStash
+  } = props
 
   const removeCard = () => {
-    resetMap()
+    handleRemoveStash(stashData.id)
+    handleClearOverlays();
   }
 
-  const displayCardOnMap = () => {
+  const clickCard = () => {
     resetMap()
-    drawOverlays(stashData.overlays)
-    handleOverlayReset(stashData.overlays)
+    if (activeStash === stashData.id) {
+      handleDeactivateStash()
+    } else {
+      handleActivateStash(stashData.id)
+      drawOverlays(stashData.overlays)
+      handleOverlayReset(stashData.overlays)
+    }
+  }
+
+  const getClass = () => {
+    return activeStash === stashData.id ? 'card active-card' : 'card';
   }
 
   return (
-    <div  className='card'
-          onClick={ () => displayCardOnMap() }>
+    <div  className={ getClass() }
+          onClick={ () => clickCard() }>
       <label>
         <svg  id='delete-new-stash'
               onClick={(e) => {
-                console.log('delete clicked!')
                 e.stopPropagation()
                 removeCard()
               }}

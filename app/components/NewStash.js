@@ -13,18 +13,26 @@ class NewStash extends Component {
   }
 
   handleSave() {
-    let { handleStashAdd, handleClearOverlays, overlayList } = this.props;
+    let {
+      handleStashAdd,
+      handleClearOverlays,
+      handleClearMap,
+      overlayList,
+    } = this.props;
     handleStashAdd(overlayList, this.state.name, this.state.lastVisited, this.state.description);
     handleClearOverlays();
+    handleClearMap()
     this.clearState();
   }
 
   handleReset() {
+    let {handleClearMap, handleDeactivateStash } = this.props;
+    handleClearMap()
+    handleDeactivateStash()
     this.clearState();
   }
 
   clearState() {
-    this.props.handleClearMap()
     this.setState({
       name: '',
       lastVisited: '',
@@ -69,7 +77,7 @@ class NewStash extends Component {
             <h3>Reset</h3>
           </div>
           <div  id='save-div'
-            onClick={() => this.handleSave() }>
+                onClick={() => this.handleSave() }>
             <h3>Save</h3>
           </div>
         </div>
