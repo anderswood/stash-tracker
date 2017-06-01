@@ -30,10 +30,10 @@ export const addStash = (overlayList, stashName, lastVisited, description) => {
   }
 }
 
-export const removeStash = (stash) => {
+export const removeStash = (stashID) => {
   return {
     type: 'REMOVE_STASH',
-    stash
+    stashID
   }
 }
 
@@ -41,5 +41,18 @@ export const addMap = (map) => {
   return {
     type: 'ADD_MAP',
     map
+  }
+}
+
+export const activateStash = (stashID) => {
+  return {
+    type: 'ACTIVATE_STASH',
+    stashID
+  }
+}
+
+export const deactivateStash = () => {
+  return {
+    type: 'DEACTIVATE_STASH'
   }
 }

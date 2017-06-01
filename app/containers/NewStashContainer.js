@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 
-import { addStash, removeStash, clearOverlaysFromStore } from '../actions/index';
+import * as actions from '../actions/index';
 import NewStash from '../components/NewStash';
 
 const mapStateToProps = (state) => {
@@ -12,13 +12,16 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     handleStashAdd: (overlayList, stashName, lastVisited, description) => {
-      dispatch(addStash(overlayList, stashName, lastVisited, description))
+      dispatch(actions.addStash(overlayList, stashName, lastVisited, description))
     },
     handleStashRemove: (stash) => {
-      dispatch(removeStash(stash))
+      dispatch(actions.removeStash(stash))
     },
     handleClearOverlays: () => {
-      dispatch(clearOverlaysFromStore())
+      dispatch(actions.clearOverlaysFromStore())
+    },
+    handleDeactivateStash: () => {
+      dispatch(actions.deactivateStash())
     }
   }
 }
