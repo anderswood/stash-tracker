@@ -38,6 +38,7 @@ class MapTile extends Component {
 
   componentDidMount() {
     this.initMap();
+    console.log('component did mount');
 
     google.maps.event.addListener(this.map, 'zoom_changed', ()=> this.handleZoomChange())
 
@@ -53,6 +54,7 @@ class MapTile extends Component {
   }
 
   componentDidUnMount() {
+    console.log('unmount');
     google.maps.event.clearListeners(map, 'zoom_changed')
     google.maps.event.clearListeners(drawingManager, 'overlaycomplete')
   }
