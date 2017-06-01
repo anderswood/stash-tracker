@@ -8,6 +8,7 @@ class NewStash extends Component {
     this.state = {
       name: '',
       lastVisited: '',
+      agency: '',
       description: ''
     }
   }
@@ -19,7 +20,7 @@ class NewStash extends Component {
       handleClearMap,
       overlayList,
     } = this.props;
-    handleStashAdd(overlayList, this.state.name, this.state.lastVisited, this.state.description);
+    handleStashAdd(overlayList, this.state.name, this.state.lastVisited, this.state.agency, this.state.description);
     handleClearOverlays();
     handleClearMap()
     this.clearState();
@@ -36,6 +37,7 @@ class NewStash extends Component {
     this.setState({
       name: '',
       lastVisited: '',
+      agency: '',
       description: ''
     })
   }
@@ -61,11 +63,19 @@ class NewStash extends Component {
                     value={ this.state.lastVisited }
                     onChange={ e => this.setState({ lastVisited: e.target.value }) }/>
           </h3>
+          <h3 className='input-label agency'>
+            <label htmlFor='agency'>Agency: </label>
+            <input  className='agency'
+                    id='agency'
+                    placeholder='Land Management Agency'
+                    value={ this.state.agency }
+                    onChange={ e => this.setState({ agency: e.target.value }) }/>
+          </h3>
           <h3 className='input-label description'>
             <label htmlFor='description'>Description: </label>
             <textarea className='description'
                       id='description'
-                      placeholder='Description'
+                      placeholder='Description: provide relevant details about this area, including the times of the year that you typically access it'
                       value={ this.state.description }
                       onChange={ e => this.setState({ description: e.target.value }) }>
             </textarea>

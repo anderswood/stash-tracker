@@ -67,6 +67,8 @@ class MapTile extends Component {
       return {lat: coordPair.lat(), lng: coordPair.lng()}
     });
 
+    //add event listener to 'e' for on click, which will trigger editOverlay
+
     let newOverlay = {
       overlayID: Date.now(),
       overlayType: e.type,
@@ -89,8 +91,14 @@ class MapTile extends Component {
 
         overlay = new google.maps.Polyline(polylineParams);
       }
+      //add event listener on click, trigger editOverlay function
       overlay.setMap(this.map);
     })
+  }
+
+  editOverlay() {
+    console.log('in edit overlay');
+    //edit overlay in store (replace previous one), then the save will trigger the stash to be updated
   }
 
   clearMap() {

@@ -10,6 +10,7 @@ export const stashes = (state=[], action) => {
       stashObj.name = action.stashName;
       stashObj.overlays = overlays;
       stashObj.lastVisited = action.lastVisited;
+      stashObj.agency = action.agency;
       stashObj.description = action.description;
 
       return [...state, stashObj];
