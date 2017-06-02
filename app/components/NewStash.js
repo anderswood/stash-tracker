@@ -13,6 +13,20 @@ class NewStash extends Component {
     }
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (this.props.status !== nextProps.status) {
+      let activeStash = nextProps.stashArr.find((stashObj) => {
+        return stashObj.id === nextProps.status
+      })
+      this.setState({
+        name: activeStash.name,
+        lastVisited: activeStash.lastVisited,
+        agency: activeStash.agency,
+        description: activeStash.description
+      })
+    }
+  }
+
   handleSave() {
     let {
       handleStashAdd,
