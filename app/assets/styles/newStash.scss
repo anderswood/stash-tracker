@@ -11,6 +11,10 @@
   text-align: center;
 }
 
+input {
+  border: 1px solid $button_outline;
+}
+
 .form-row {
   display: flex;
   align-items: center;
@@ -37,7 +41,7 @@
   display: flex;
 }
 
-#description {
+#stash-description {
   margin-top: 8px;
   width: 200px;
   height: 95px;

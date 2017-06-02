@@ -14,6 +14,7 @@ class NewStash extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
+    console.log(this.props.status, nextProps.status);
     if (this.props.status !== nextProps.status) {
       let activeStash = nextProps.stashArr.find((stashObj) => {
         return stashObj.id === nextProps.status
@@ -91,11 +92,11 @@ class NewStash extends Component {
           </section>
           <section className='form-row'>
             <div className='form-left'>
-              <label htmlFor='agency'><h3>Agency:</h3></label>
+              <label htmlFor='land-agency'><h3>Agency:</h3></label>
             </div>
             <div className='form-right'>
-              <input  className='agency'
-                      id='agency'
+              <input  className='land-agency'
+                      id='land-agency'
                       placeholder='Land Management Agency'
                       value={ this.state.agency }
                       onChange={ e => this.updateOnChange(e, 'agency') }/>
@@ -103,11 +104,11 @@ class NewStash extends Component {
           </section>
           <section className='form-description'>
             <div className='form-left'>
-              <label htmlFor='description'><h3>Description:</h3></label>
+              <label htmlFor='stash-description'><h3>Description:</h3></label>
             </div>
             <div className='form-right'>
-              <textarea  className='description'
-                      id='description'
+              <textarea  className='stash-description'
+                      id='stash-description'
                       placeholder='Description: provide relevant details about this area, including the times of the year that you typically access it'
                       value={ this.state.description }
                       onChange={ e => this.updateOnChange(e, 'description') }>
