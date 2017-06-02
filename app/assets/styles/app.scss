@@ -15,28 +15,32 @@ h1 {
   padding: 15px;
 }
 
+h2 {
+  margin: 15px auto 12px auto;
+}
+
+h3 {
+  margin: 5px 0;
+}
+
+h4 {
+  margin: 6px 0;
+}
+
 header {
   background: $COLOR_BLUE;
 }
 
 
 #content-div {
-  // display: flex;
-  // justify-content: center;
+  display: flex;
 }
 
 #map-stash-div {
-  display: inline-block;
-  border: 1px solid blue;
-  width: calc(100% - 235px);
+  // display: inline-block;
+  // width: calc(100% - 235px);
 }
 
 #list-div {
-  display: inline-block;
-  width: $list_width;
-  height: 100vh;
-  vertical-align: top;
-  background-color: $COLOR_LT_BLUE;
-  border: 1px solid red;
-  text-align: center;
+
 }

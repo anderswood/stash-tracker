@@ -17,20 +17,15 @@ class MapTile extends Component {
 
   render() {
     return (
-      <div className='GMap'>
+      <div id='content-div'>
+        <div className='GMap'>
           <div  className='GMap-canvas'
-                ref="mapCanvas">
+            ref="mapCanvas">
           </div>
-        <button onClick={ () => this.drawOverlayCoordsOnMap(this.props.overlayList) }>DRAW COORDS</button>
-        <button onClick={ () => this.clearMap() }>Wipe Map</button>
-        <button onClick={ () => this.saveMap() }>save map</button>
-        <div>
           <NewStashContainer handleClearMap={ this.clearMap.bind(this) } />
         </div>
-        <div>
-          <StashListContainer handleClearMap={ this.clearMap.bind(this) }
+        <StashListContainer handleClearMap={ this.clearMap.bind(this) }
                               handleAddOverlays={ this.drawOverlayCoordsOnMap.bind(this) }/>
-        </div>
       </div>
     )
   }

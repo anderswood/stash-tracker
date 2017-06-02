@@ -42,44 +42,64 @@ class NewStash extends Component {
     })
   }
 
+  updateOnChange (e, title) {
+    this.setState({[title]: e.target.value})
+  }
+
   render() {
     return(
       <section id='new-stash-div'>
         <h2>New Stash</h2>
         <form className='new-stash-form'>
-          <h3 className='input-label stash-name'>
-            <label htmlFor='stash-name'>Stash/Zone Name: </label>
-            <input  className='stash-name'
-                    id='stash-name'
-                    placeholder='Track/Zone Name'
-                    value={ this.state.name }
-                    onChange={ e => this.setState({ name: e.target.value }) }/>
-          </h3>
-          <h3 className='input-label last-visited'>
-            <label htmlFor='last-visited'>Last Visited: </label>
-            <input  className='last-visited'
-                    id='last-visited'
-                    placeholder='Last Visited'
-                    value={ this.state.lastVisited }
-                    onChange={ e => this.setState({ lastVisited: e.target.value }) }/>
-          </h3>
-          <h3 className='input-label agency'>
-            <label htmlFor='agency'>Agency: </label>
-            <input  className='agency'
-                    id='agency'
-                    placeholder='Land Management Agency'
-                    value={ this.state.agency }
-                    onChange={ e => this.setState({ agency: e.target.value }) }/>
-          </h3>
-          <h3 className='input-label description'>
-            <label htmlFor='description'>Description: </label>
-            <textarea className='description'
+          <section className='form-row'>
+            <div className='form-left'>
+              <label htmlFor='stash-name'><h3>Stash/Zone Name:</h3></label>
+            </div>
+            <div className='form-right'>
+              <input  className='stash-name'
+                      id='stash-name'
+                      placeholder='Track/Zone Name'
+                      value={ this.state.name }
+                      onChange={ e => this.updateOnChange(e, 'name') }/>
+            </div>
+          </section>
+          <section className='form-row'>
+            <div className='form-left'>
+              <label htmlFor='last-visited'><h3>Last Visited:</h3></label>
+            </div>
+            <div className='form-right'>
+              <input  className='last-visited'
+                      id='last-visited'
+                      placeholder='Last Visted'
+                      value={ this.state.lastVisited }
+                      onChange={ e => this.updateOnChange(e, 'lastVisited') }/>
+            </div>
+          </section>
+          <section className='form-row'>
+            <div className='form-left'>
+              <label htmlFor='agency'><h3>Agency:</h3></label>
+            </div>
+            <div className='form-right'>
+              <input  className='agency'
+                      id='agency'
+                      placeholder='Land Management Agency'
+                      value={ this.state.agency }
+                      onChange={ e => this.updateOnChange(e, 'agency') }/>
+            </div>
+          </section>
+          <section className='form-description'>
+            <div className='form-left'>
+              <label htmlFor='description'><h3>Description:</h3></label>
+            </div>
+            <div className='form-right'>
+              <textarea  className='description'
                       id='description'
                       placeholder='Description: provide relevant details about this area, including the times of the year that you typically access it'
                       value={ this.state.description }
-                      onChange={ e => this.setState({ description: e.target.value }) }>
-            </textarea>
-          </h3>
+                      onChange={ e => this.updateOnChange(e, 'description') }>
+              </textarea>
+            </div>
+          </section>
         </form>
         <div id='reset-save-container'>
           <div  id='reset-div'

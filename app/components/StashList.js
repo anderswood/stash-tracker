@@ -13,9 +13,9 @@ const StashList = (props) => {
   })
 
   return (
-    <div id='stash-list'>
+    <div id='stash-div'>
       <h2>Stashes</h2>
-      <div>{ stashListArr }</div>
+      <div id='stash-list'>{ stashListArr }</div>
     </div>
 
   )

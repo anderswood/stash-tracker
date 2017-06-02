@@ -1,3 +1,9 @@
+@import './variables.scss';
+
+.GMap {
+  width: 100%;
+  background: $COLOR_GRAY;
+}
 
 .GMap-canvas {
   height: 350px;
