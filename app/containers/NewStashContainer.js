@@ -5,7 +5,9 @@ import NewStash from '../components/NewStash';
 
 const mapStateToProps = (state) => {
   return {
-    overlayList: state.overlays
+    overlayList: state.overlays,
+    status: state.status,
+    stashArr: state.stashes
   }
 }
 
