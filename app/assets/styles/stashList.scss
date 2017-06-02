@@ -1,1 +1,12 @@
 
+#stash-div {
+  width: 250px;
+  height: 100vh;
+  background-color: $COLOR_LT_BLUE;
+  text-align: center;
+}
+
+#stash-list {
+  display: flex;
+  flex-direction: column;
+}

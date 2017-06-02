@@ -13,14 +13,7 @@ export default class App extends Component {
         <header>
           <h1>StashTracker</h1>
         </header>
-        <section id='content-div'>
-          <section id='map-stash-div'>
-            <MapDiv />
-          </section>
-          <section id='list-div'>
-            {/* <StashListContainer /> */}
-          </section>
-        </section>
+        <MapDiv />
       </div>
     )
   }
