@@ -9,13 +9,13 @@ export const overlays = (state = [], action) => {
       return [...action.overlayList]
 
     case 'EDIT_OVERLAY':
-      let updatedState = Object.assign([], state)
-      let filteredState = updatedState.filter( overlayObj => {
-        console.log('overlayObj', overlayObj);
-        console.log('over', action.overlay);
-
-        return overlayObj.id != action.overlay.id
-      })
+      // let updatedState = Object.assign([], state)
+      // let filteredState = updatedState.filter( overlayObj => {
+      //   console.log('overlayObj', overlayObj);
+      //   console.log('over', action.overlay);
+      //
+      //   return overlayObj.id != action.overlay.id
+      // })
 
       return [...filteredState, action.overlay]
 

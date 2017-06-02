@@ -93,9 +93,9 @@ class MapTile extends Component {
         overlay = new google.maps.Polyline(polylineParams);
       }
       //add event listener on click, trigger editOverlay function
-      google.maps.event.addListener(overlay.getPath(), 'insert_at', (e) => {
-        console.log('set/insert');
-        this.editOverlay(path)
+      google.maps.event.addListener(overlay.getPath(), 'set_at', (e) => {
+        console.log(path.overlayID);
+        this.props.handleEditOverlay(path);
       })
 
         // google.maps.event.addListener(overlay.getPath(), 'insert_at', (e) => {
@@ -107,8 +107,6 @@ class MapTile extends Component {
   }
 
   editOverlay(path) {
-    console.log(path.overlayID);
-    // this.props.handleEditOverlay(path);
 
   }
 
