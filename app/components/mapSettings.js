@@ -34,11 +34,13 @@ export const drawmingMgrProps = () => {
     },
     markerOptions: {icon: 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png'},
     polygonOptions: {
-      fillColor: '#ffff00',
-      fillOpacity: 1,
-      strokeWeight: 5,
-      clickable: true,
       editable: true,
+      clickable: true,
+      fillColor: '#E4801C',
+      fillOpacity: 0.2,
+      strokeColor: '#E4801C',
+      strokeOpacity: 0.8,
+      strokeWeight: 2,
       zIndex: 1
     }
   }
