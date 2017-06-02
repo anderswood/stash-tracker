@@ -2,15 +2,15 @@ import React from 'react'
 
 const StashCard =(props) => {
   let  {
-    stashData,
-    resetMap,
+    activeStash,
     drawOverlays,
     handleOverlayReset,
     handleClearOverlays,
     handleRemoveStash,
     handleActivateStash,
     handleDeactivateStash,
-    activeStash
+    resetMap,
+    stashData,
   } = props
 
   const removeCard = () => {
@@ -24,6 +24,7 @@ const StashCard =(props) => {
       handleDeactivateStash()
     } else {
       handleActivateStash(stashData.id)
+      // updateInputFields()
       drawOverlays(stashData.overlays)
       handleOverlayReset(stashData.overlays)
     }
