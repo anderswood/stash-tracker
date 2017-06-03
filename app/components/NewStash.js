@@ -14,7 +14,6 @@ class NewStash extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log(this.props.status, nextProps.status);
     if (this.props.status !== nextProps.status && nextProps.status !== '' ) {
       let activeStash = nextProps.stashArr.find((stashObj) => {
         return stashObj.id === nextProps.status
@@ -37,10 +36,7 @@ class NewStash extends Component {
       overlayList,
       status
     } = this.props;
-
     let {name, lastVisited, agency, description} = this.state
-
-    console.log(status);
 
     handleStashAdd(overlayList, name, lastVisited, agency, description, status);
     handleClearOverlays();
@@ -51,6 +47,7 @@ class NewStash extends Component {
 
   handleReset() {
     let {handleClearMap, handleDeactivateStash } = this.props;
+
     handleClearMap()
     handleDeactivateStash()
     this.clearState();
