@@ -20,14 +20,15 @@ export const clearOverlaysFromStore = () => {
   }
 }
 
-export const addStash = (overlayList, stashName, lastVisited, agency, description) => {
+export const addStash = (overlayList, stashName, lastVisited, agency, description, status) => {
   return {
     type: 'ADD_STASH',
     overlayList,
     stashName,
     lastVisited,
     agency,
-    description
+    description,
+    status
   }
 }
 
