@@ -13,8 +13,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    handleStashAdd: (overlayList, stashName, lastVisited, agency, description) => {
-      dispatch(actions.addStash(overlayList, stashName, lastVisited, agency, description))
+    handleStashAdd: (overlayList, stashName, lastVisited, agency, description, status) => {
+      dispatch(actions.addStash(overlayList, stashName, lastVisited, agency, description, status))
     },
     handleStashRemove: (stash) => {
       dispatch(actions.removeStash(stash))

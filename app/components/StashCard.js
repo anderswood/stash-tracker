@@ -24,7 +24,6 @@ const StashCard =(props) => {
       handleDeactivateStash()
     } else {
       handleActivateStash(stashData.id)
-      // updateInputFields()
       drawOverlays(stashData.overlays)
       handleOverlayReset(stashData.overlays)
     }
