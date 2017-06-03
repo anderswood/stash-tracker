@@ -1,7 +1,8 @@
 export const stashes = (state=[], action) => {
+  let cardID = action.status || action.stashID
   let updatedStashes = Object.assign([], state)
   let filteredStashes = updatedStashes.filter(stash => {
-    return stash.id !== action.status || action.stashID
+    return stash.id !== cardID
   })
 
   switch (action.type) {
