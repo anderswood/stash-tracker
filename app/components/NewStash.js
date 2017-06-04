@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-import MapTile from './MapTile'
+import SaveStashContainer from '../containers/SaveStashContainer'
 
 class NewStash extends Component {
   constructor(props) {
@@ -27,28 +27,10 @@ class NewStash extends Component {
     }
   }
 
-  handleSave() {
-    let {
-      handleStashAdd,
-      handleClearOverlays,
-      handleClearMap,
-      handleDeactivateStash,
-      overlayList,
-      status
-    } = this.props;
-    let {name, lastVisited, agency, description} = this.state
-
-    handleStashAdd(overlayList, name, lastVisited, agency, description, status);
-    handleClearOverlays();
-    handleClearMap()
-    handleDeactivateStash()
-    this.clearState();
-  }
-
   handleReset() {
-    let {handleClearMap, handleDeactivateStash } = this.props;
+    let {handleResetMap, handleDeactivateStash } = this.props;
 
-    handleClearMap()
+    handleResetMap()
     handleDeactivateStash()
     this.clearState();
   }
@@ -126,10 +108,9 @@ class NewStash extends Component {
             onClick={() => this.handleReset()}>
             <h3>Reset</h3>
           </div>
-          <div  id='save-div'
-                onClick={() => this.handleSave() }>
-            <h3>Save</h3>
-          </div>
+          <SaveStashContainer resetMap={ this.props.handleResetMap }
+                              newStashInfo={ this.state }
+                              resetState={ this.clearState.bind(this) }/>
         </div>
       </section>
     )
