@@ -17,9 +17,6 @@ const mapDispatchToProps = (dispatch) => {
     handleClearOverlays: () => {
       dispatch(actions.clearOverlaysFromStore())
     },
-    handleRemoveStash: (stashID) => {
-      dispatch(actions.removeStash(stashID))
-    },
     handleActivateStash: (stashID) => {
       dispatch(actions.activateStash(stashID))
     },

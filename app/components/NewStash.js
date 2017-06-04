@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 
 import SaveStashContainer from '../containers/SaveStashContainer'
+import ResetStashContainer from '../containers/ResetStashContainer'
 
 class NewStash extends Component {
   constructor(props) {
@@ -25,14 +26,6 @@ class NewStash extends Component {
         description: activeStash.description
       })
     }
-  }
-
-  handleReset() {
-    let {handleResetMap, handleDeactivateStash } = this.props;
-
-    handleResetMap()
-    handleDeactivateStash()
-    this.clearState();
   }
 
   clearState() {
@@ -104,10 +97,8 @@ class NewStash extends Component {
           </section>
         </form>
         <div id='reset-save-container'>
-          <div  id='reset-div'
-            onClick={() => this.handleReset()}>
-            <h3>Reset</h3>
-          </div>
+          <ResetStashContainer  resetMap={ this.props.handleResetMap }
+                                resetState={ this.clearState.bind(this) }/>
           <SaveStashContainer resetMap={ this.props.handleResetMap }
                               newStashInfo={ this.state }
                               resetState={ this.clearState.bind(this) }/>
