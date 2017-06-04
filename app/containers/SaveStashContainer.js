@@ -1,13 +1,12 @@
-import { connect } from 'react-redux';
+import { connect } from 'react-redux'
 
-import * as actions from '../actions/index';
-import NewStash from '../components/NewStash';
+import * as actions from '../actions/index'
+import SaveStash from '../components/SaveStash'
 
 const mapStateToProps = (state) => {
   return {
     overlayList: state.overlays,
     status: state.status,
-    stashArr: state.stashes
   }
 }
 
@@ -22,10 +21,7 @@ const mapDispatchToProps = (dispatch) => {
     handleStashAdd: (overlayList, stashName, lastVisited, agency, description, status) => {
       dispatch(actions.addStash(overlayList, stashName, lastVisited, agency, description, status))
     },
-    handleStashRemove: (stash) => {
-      dispatch(actions.removeStash(stash))
-    },
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(NewStash)
+export default connect(mapStateToProps, mapDispatchToProps)(SaveStash)

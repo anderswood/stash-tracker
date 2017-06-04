@@ -1,11 +1,8 @@
 import React, { Component } from 'react'
 
-// import StashListContainer from '../containers/StashListContainer'
-import MapDiv from './MapDiv'
-// import NewStashContainer from '../containers/NewStashContainer'
+import MapTileContainer from '../containers/MapTileContainer'
 
 export default class App extends Component {
-
 
   render () {
     return (
@@ -13,7 +10,10 @@ export default class App extends Component {
         <header>
           <h1>StashTracker</h1>
         </header>
-        <MapDiv />
+        <MapTileContainer  initialCenter={ {
+          lng: -105.7208812,
+          lat: 40.3058035
+        } }/>
       </div>
     )
   }
