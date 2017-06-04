@@ -11,21 +11,4 @@ const mapStateToProps = (state) => {
   }
 }
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    handleClearOverlays: () => {
-      dispatch(actions.clearOverlaysFromStore())
-    },
-    handleDeactivateStash: () => {
-      dispatch(actions.deactivateStash())
-    },
-    handleStashAdd: (overlayList, stashName, lastVisited, agency, description, status) => {
-      dispatch(actions.addStash(overlayList, stashName, lastVisited, agency, description, status))
-    },
-    handleStashRemove: (stash) => {
-      dispatch(actions.removeStash(stash))
-    },
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(NewStash)
+export default connect(mapStateToProps, null)(NewStash)

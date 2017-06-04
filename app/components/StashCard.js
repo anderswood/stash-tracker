@@ -3,14 +3,13 @@ import React from 'react'
 import DeleteStashContainer from '../containers/DeleteStashContainer'
 
 const StashCard =(props) => {
-  let  {
-    activeStash,
-    drawOverlays,
+  let  { activeStash } = props
+  let { drawOverlays, resetMap, stashData } = props
+  let {
+    handleClearOverlays,
     handleOverlayReset,
     handleActivateStash,
-    handleDeactivateStash,
-    resetMap,
-    stashData,
+    handleDeactivateStash
   } = props
 
   const clickCard = () => {
@@ -18,6 +17,7 @@ const StashCard =(props) => {
 
     if (activeStash === stashData.id) {
       handleDeactivateStash()
+      handleClearOverlays()
     } else {
       handleActivateStash(stashData.id)
       drawOverlays(stashData.overlays)
