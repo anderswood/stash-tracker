@@ -39,13 +39,6 @@ export const removeStash = (stashID) => {
   }
 }
 
-export const addMap = (map) => {
-  return {
-    type: 'ADD_MAP',
-    map
-  }
-}
-
 export const activateStash = (stashID) => {
   return {
     type: 'ACTIVATE_STASH',

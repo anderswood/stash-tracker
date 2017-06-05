@@ -1,9 +1,7 @@
-<<<<<<< HEAD
+
 node_modules/
 
-API key
-key.js
-=======
+
 # See http://help.github.com/ignore-files/ for more about ignoring files.
 
 # dependencies
@@ -19,4 +17,3 @@ build
 .DS_Store
 .env
 npm-debug.log
->>>>>>> ff99bdfd6223ab76a4b5ffc4b9da9dd14405ee36
