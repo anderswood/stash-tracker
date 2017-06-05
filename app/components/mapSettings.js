@@ -42,6 +42,14 @@ export const drawmingMgrProps = () => {
       strokeOpacity: 0.8,
       strokeWeight: 2,
       zIndex: 1
+    },
+    polylineOptions: {
+      draggable: true,
+      editable: true,
+      geodesic: true,
+      strokeColor: '#E4801C',
+      strokeOpacity: 0.8,
+      strokeWeight: 2
     }
   }
 }
