@@ -12,6 +12,8 @@ class MapTile extends Component {
       drawingManagerProps: drawmingMgrProps(),
       polygonInputs: (e) => polygonParams(e),
       polylineInputs: (e) => polylineParams(e),
+      selectedOverlay: '',
+      activeOverlays: [],
     }
   }
 
@@ -19,17 +21,18 @@ class MapTile extends Component {
     this.initMap();
   }
 
-  componentDidUnMount() {
-    google.maps.event.clearListeners(map, 'zoom_changed')
-    google.maps.event.clearListeners(drawingManager, 'overlaycomplete')
-  }
+  // componentWillUnmount() {
+  //   google.maps.event.clearListeners(map, 'zoom_changed')
+  //   google.maps.event.clearListeners(drawingManager, 'overlaycomplete')
+  // }
 
   render() {
     return (
       <div id='content-div'>
         <div className='GMap'>
           <div className='GMap-canvas' ref="mapCanvas"></div>
-          <NewStashContainer handleResetMap={ this.initMap.bind(this) } />
+          <NewStashContainer  sendOverlayList={ this.saveOverlayList.bind(this) }
+                              handleResetMap={ this.initMap.bind(this) } />
         </div>
         <StashListContainer handleResetMap={ this.initMap.bind(this) }
                             handleAddOverlays={ this.drawOverlayCoordsOnMap.bind(this) }/>
@@ -44,26 +47,86 @@ class MapTile extends Component {
 
     google.maps.event.addListener(this.map, 'zoom_changed', ()=> this.handleZoomChange())
 
-    google.maps.event.addListener(this.drawingManager, 'overlaycomplete', (event) => {
-      if (event.type === 'polygon' || event.type === 'polyline') {
-        this.retrieveOverlayCoordsFromMap(event)
+    google.maps.event.addListener(this.drawingManager, 'overlaycomplete', (completeEvent) => {
+      if (completeEvent.type === 'polygon' || completeEvent.type === 'polyline') {
+        this.drawingManager.setDrawingMode(null)
 
+        let newShape = completeEvent.overlay
+        newShape.type = completeEvent.type
+        newShape.id = Date.now()
+
+        google.maps.event.addListener(newShape, 'click', ()=> {
+          this.setSelectedShape(newShape)
+
+          google.maps.event.addListener(newShape.getPath(), 'insert_at', (e) => {
+            // this.setSelectedShape(newShape)
+            this.retrieveOverlayCoordsFromMap(newShape);
+          })
+
+          google.maps.event.addListener(newShape.getPath(), 'set_at', (e) => {
+            // this.setSelectedShape(newShape)
+            this.retrieveOverlayCoordsFromMap(newShape);
+          })
+
+        })
+
+        google.maps.event.addListener(this.drawingManager, 'drawingmode_changed', () => {
+          if (this.state.selectedOverlay) {
+            this.state.selectedOverlay.setEditable(false)
+          }
+          this.setState({selectedOverlay: ''})
+        })
+
+        this.setSelectedShape(newShape)
+        console.log('end of overlay complete');
+        this.retrieveOverlayCoordsFromMap(newShape);
       }
     });
   }
 
-  retrieveOverlayCoordsFromMap(e) {
-    let overlayCoords = e.overlay.getPath().getArray().map((coordPair, i) => {
-      return {lat: coordPair.lat(), lng: coordPair.lng()}
-    });
-
-    let newOverlay = {
-      overlayID: Date.now(),
-      overlayType: e.type,
-      overlayCoords: overlayCoords
+  setSelectedShape(selectedShape) {
+    if (this.state.selectedOverlay) {
+      this.state.selectedOverlay.setEditable(false)
     }
 
-    this.props.handleOverlayAdd(newOverlay)
+    selectedShape.setEditable(true);
+    this.setState({selectedOverlay: selectedShape});
+  }
+
+  retrieveOverlayCoordsFromMap(newShape) {
+    let updatedOverlays = Object.assign([], this.state.activeOverlays)
+    let filteredOverlays = updatedOverlays.filter( overlay => {
+      return newShape.id !== overlay.id
+    })
+
+    filteredOverlays.push(newShape)
+    this.setState({
+      activeOverlays: filteredOverlays
+    })
+
+    // let overlayCoords = newShape.getPath().getArray().map((coordPair, i) => {
+    //   return {lat: coordPair.lat(), lng: coordPair.lng(), id: i}
+    // });
+    //
+    // let newOverlay = {
+    //   overlayID: Date.now(),
+    //   overlayType: newShape.type,
+    //   overlayCoords: overlayCoords
+    // }
+
+    // this.props.handleOverlayAdd(newOverlay)
+    // console.log('overlayCoords', newShape);
+  }
+
+  saveOverlayList () {
+    let activeOverlays = this.state.activeOverlays
+
+    this.setState({
+      selectedOverlay: '',
+      activeOverlays: [],
+    })
+
+    return activeOverlays
   }
 
   drawOverlayCoordsOnMap(overlayArr) {
