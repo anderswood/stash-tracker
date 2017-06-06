@@ -15,9 +15,10 @@ Current Functionality:
 Next Steps:
 * Include more responsiveness for wide screen cases
 * Save the zoom and window coordinates associated with each stash so the map re-centers when stashes are display
-* Allow the user to edit the shapes and tracks and save the updates
 * Allow the user to delete each shape and track and save the updates
-* Include a search field to find areas zones quicker
+* Allow the user to edit the shapes and tracks and save the updates
+* Include a search field on map
+* Include the option to add markers and notes attached to the markers
 * Add a back end to save 'submitted' pages
 * Include an admin view on the back end that can aggregate and view all the stashes
 
