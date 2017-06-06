@@ -3,9 +3,9 @@ import React from 'react'
 import DeleteStashContainer from '../containers/DeleteStashContainer'
 
 const StashCard =(props) => {
-  let  { activeStash } = props
-  let { drawOverlays, resetMap, stashData } = props
-  let {
+  const  { activeStash } = props
+  const { drawOverlays, resetMap, stashData } = props
+  const {
     handleClearOverlays,
     handleOverlayReset,
     handleActivateStash,

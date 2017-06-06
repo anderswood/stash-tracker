@@ -2,9 +2,6 @@
 # Stash Tracker
 Stash Tracker allows the user to record backcountry skiing routes using polygons and polylines with the Google Maps API. The user can toggle between different saved stashes to display them on the map.
 
-I built the app as a personal project over 2 weeks. I collaborated with Winter Wildlandsd Alliance [(WWA)](https://winterwildlands.org/) to help solve one of the organization's challenges: collecting details about 
-
-
 # Project Status
 This project is currently in development (as of 6/5/17).
 
@@ -16,10 +13,13 @@ Current Functionality:
 * Update the stash by displaying it and then hitting 'save'
 
 Next Steps:
+* Include more responsiveness for wide screen cases
 * Save the zoom and window coordinates associated with each stash so the map re-centers when stashes are display
 * Allow the user to edit the shapes and tracks and save the updates
 * Allow the user to delete each shape and track and save the updates
 * Include a search field to find areas zones quicker
+* Add a back end to save 'submitted' pages
+* Include an admin view on the back end that can aggregate and view all the stashes
 
 # Project Screen Shot(s)   
 ![app with multiple stashes saved and one displayed]()
@@ -31,6 +31,7 @@ Production site: [StashTracker](heroku site)
 ie: `git clone, npm start, bower install, etc`  
 
 ## Reflection
+I built the app as a personal project over 2 weeks. I collaborated with Winter Wildlandsd Alliance [(WWA)](https://winterwildlands.org/) to help solve one of the organization's challenges: collecting details about
 
   - What was the context for this project? (ie: was this a side project? was this for Turing? was this for an experiment?)
   - What did you set out to build?
