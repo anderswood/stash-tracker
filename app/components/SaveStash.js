@@ -3,11 +3,11 @@ import React from 'react'
 const SaveStash = (props) => {
 
   const handleSave = () => {
-    let { overlayList, status } = props
-    let { handleClearOverlays, handleDeactivateStash, handleStashAdd } = props
-    let { resetMap, newStashInfo, resetState } = props;
+    const { overlayList, status } = props
+    const { handleClearOverlays, handleDeactivateStash, handleStashAdd } = props
+    const { resetMap, newStashInfo, resetState } = props;
 
-    let { name, lastVisited, agency, description } = newStashInfo
+    const { name, lastVisited, agency, description } = newStashInfo
 
     handleStashAdd(overlayList, name, lastVisited, agency, description, status);
     handleClearOverlays();

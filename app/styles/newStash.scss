@@ -2,7 +2,7 @@
 
 #new-stash-div {
   text-align: center;
-  max-width: 520px;
+  max-width: 640px;
   margin-left: auto;
   margin-right: auto;
   border-top: 1px solid rgba(204, 204, 204, 0.6);
@@ -49,6 +49,11 @@ input {
   height: 95px;
   resize: none;
   border: 1px solid #CCC;
+}
+
+#stash-description, input {
+  width: 85%;
+  // max-width: 210px;
 }
 
 #reset-div, #save-div {
