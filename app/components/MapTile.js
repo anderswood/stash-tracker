@@ -47,6 +47,7 @@ class MapTile extends Component {
     google.maps.event.addListener(this.drawingManager, 'overlaycomplete', (event) => {
       if (event.type === 'polygon' || event.type === 'polyline') {
         this.retrieveOverlayCoordsFromMap(event)
+
       }
     });
   }

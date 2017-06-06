@@ -52,4 +52,5 @@ One of the main challenges I ran into was Authentication. This lead me to spend 
 At the end of the day, the technologies implemented in this project are React, React-Router 4.0, Redux, LoDash, D3, and a significant amount of VanillaJS, JSX, and CSS. I chose to use the `create-react-app` boilerplate to minimize initial setup and invest more time in diving into weird technological rabbit holes. In the next iteration I plan on handrolling a `webpack.config.js` file to more fully understand the build process. -->
 
 ## Resources
+Original guidance for setting up google map API in react: [Google Maps React Component in ES6](http://revelry.co/google-maps-react-component-in-es6/)
   Link to any additional resources you used, giving credit to any other codebases or technologies you pulled from the internet.  
