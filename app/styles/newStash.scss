@@ -62,12 +62,18 @@ input {
   text-align: center;
 }
 
+#show-all-btn {
+  background: $COLOR_GRAY;
+  margin: 0 auto;
+  margin-top: 15px;
+}
+
+.btn:hover, #show-all-btn:hover {
+  background-color: $COLOR_LT_ORANGE;
+}
+
 #reset-save-container {
   display: flex;
   justify-content: space-between;
   margin: 20px 0;
-}
-
-.btn:hover {
-  background-color: $COLOR_LT_ORANGE;
 }
