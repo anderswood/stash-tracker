@@ -3,22 +3,41 @@ import React from 'react'
 const SaveStash = (props) => {
 
   const handleSave = () => {
-    const { overlayList, status } = props
-    const { handleClearOverlays, handleDeactivateStash, handleStashAdd } = props
-    const { resetMap, newStashInfo, resetState } = props;
+    const { status } = props //redux state props
+    const { handleClearOverlays, handleDeactivateStash, handleStashAdd } = props //redux dispatch props
+    const { getOverlayList, resetMap, newStashInfo, resetState } = props; //react props
 
     const { name, lastVisited, agency, description } = newStashInfo
 
-    handleStashAdd(overlayList, name, lastVisited, agency, description, status);
+    const overlayList = getOverlayList()
+    const overlayListMin = processOverlays(overlayList)
+
+    handleStashAdd(overlayListMin, name, lastVisited, agency, description, status);
     handleClearOverlays();
     resetMap()
     handleDeactivateStash()
     resetState();
   }
 
+  const processOverlays = (overlaysBig) => {
+    let overlaysSmall = overlaysBig.map(overlay => {
+      let overlayCoords = overlay.getPath().getArray().map((coordPair, i) => {
+        return {lat: coordPair.lat(), lng: coordPair.lng(), id: i}
+      });
+
+      return {
+        overlayID: Date.now(),
+        overlayType: overlay.type,
+        overlayCoords: overlayCoords
+      }
+    })
+
+    return overlaysSmall
+  }
+
   return (
     <div  id='save-div'
-          onClick={() => handleSave() }>
+          onClick={ () => handleSave() }>
       <h3>Save</h3>
     </div>
   )

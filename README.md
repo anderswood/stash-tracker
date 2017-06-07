@@ -15,9 +15,10 @@ Current Functionality:
 Next Steps:
 * Include more responsiveness for wide screen cases
 * Save the zoom and window coordinates associated with each stash so the map re-centers when stashes are display
-* Allow the user to edit the shapes and tracks and save the updates
 * Allow the user to delete each shape and track and save the updates
-* Include a search field to find areas zones quicker
+* Allow the user to edit the shapes and tracks and save the updates
+* Include a search field on map
+* Include the option to add markers and notes attached to the markers
 * Add a back end to save 'submitted' pages
 * Include an admin view on the back end that can aggregate and view all the stashes
 
@@ -51,4 +52,5 @@ One of the main challenges I ran into was Authentication. This lead me to spend 
 At the end of the day, the technologies implemented in this project are React, React-Router 4.0, Redux, LoDash, D3, and a significant amount of VanillaJS, JSX, and CSS. I chose to use the `create-react-app` boilerplate to minimize initial setup and invest more time in diving into weird technological rabbit holes. In the next iteration I plan on handrolling a `webpack.config.js` file to more fully understand the build process. -->
 
 ## Resources
+Original guidance for setting up google map API in react: [Google Maps React Component in ES6](http://revelry.co/google-maps-react-component-in-es6/)
   Link to any additional resources you used, giving credit to any other codebases or technologies you pulled from the internet.  
