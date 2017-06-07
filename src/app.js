@@ -25,7 +25,7 @@ if (process.env.NODE_ENV !== 'production') {
   }));
 }
 
-app.use('/assets', express.static(path.join(__dirname, '../app/assets')));
+app.use('/assets', express.static(path.join(__dirname, '../public')));
 
 app.get('/', function (req, res) { res.sendFile(path.join(__dirname, '/../index.html')) });
 
