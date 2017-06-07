@@ -13,7 +13,6 @@ Current Functionality:
 * Update the stash by displaying it and then hitting 'save'
 
 Next Steps:
-* Include more responsiveness for wide screen cases
 * Save the zoom and window coordinates associated with each stash so the map re-centers when stashes are display
 * Allow the user to delete each shape and track and save the updates
 * Allow the user to edit the shapes and tracks and save the updates

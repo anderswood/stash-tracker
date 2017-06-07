@@ -28,6 +28,7 @@ h4 {
 
 header {
   background: $COLOR_BLUE;
+
 }
 
 
@@ -35,4 +36,14 @@ header {
   display: flex;
   background: $COLOR_LT_BLUE;
   border: 1px solid rgba(204, 204, 204, 0.6);
+}
+
+#header-icon {
+  fill: $COLOR_ORANGE;
+  margin-left: 8px;
+  margin-right: 8px;
+}
+
+header h1 {
+  display: flex;
 }

@@ -13,11 +13,11 @@ const StashCard =(props) => {
   } = props
 
   const clickCard = () => {
-    resetMap()
 
     if (activeStash === stashData.id) {
       handleDeactivateStash()
       handleClearOverlays()
+      resetMap()
     } else {
       handleActivateStash(stashData.id)
       drawOverlays(stashData.overlays)

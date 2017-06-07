@@ -22,7 +22,7 @@ const SaveStash = (props) => {
   const processOverlays = (overlaysBig) => {
     let overlaysSmall = overlaysBig.map(overlay => {
       let overlayCoords = overlay.getPath().getArray().map((coordPair, i) => {
-        return {lat: coordPair.lat(), lng: coordPair.lng(), id: i}
+        return {lat: coordPair.lat(), lng: coordPair.lng()}
       });
 
       return {
