@@ -1,5 +1,7 @@
 import React from 'react'
+
 import StashCardContainer from '../containers/StashCardContainer.js'
+import ShowAllButtonContainer from '../containers/ShowAllButtonContainer'
 
 const StashList = (props) => {
 
@@ -12,6 +14,7 @@ const StashList = (props) => {
 
   return (
     <div id='stash-div'>
+      <ShowAllButtonContainer drawOverlays={ props.handleAddOverlays } />
       <h2>Stashes</h2>
       <div id='stash-list'>{ stashListArr }</div>
     </div>

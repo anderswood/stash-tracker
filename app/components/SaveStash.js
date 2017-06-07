@@ -26,7 +26,7 @@ const SaveStash = (props) => {
       });
 
       return {
-        overlayID: Date.now(),
+        overlayID: overlay.id,
         overlayType: overlay.type,
         overlayCoords: overlayCoords
       }
@@ -37,6 +37,7 @@ const SaveStash = (props) => {
 
   return (
     <div  id='save-div'
+          className='btn'
           onClick={ () => handleSave() }>
       <h3>Save</h3>
     </div>

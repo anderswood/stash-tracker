@@ -28,9 +28,7 @@ h4 {
 
 header {
   background: $COLOR_BLUE;
-
 }
-
 
 #content-div {
   display: flex;
@@ -40,10 +38,15 @@ header {
 
 #header-icon {
   fill: $COLOR_ORANGE;
-  margin-left: 8px;
-  margin-right: 8px;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+.skier-icon {
+  stroke-width: 1;
 }
 
 header h1 {
   display: flex;
+  align-items: flex-start;
 }
