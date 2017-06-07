@@ -46,6 +46,7 @@ class MapTile extends Component {
     google.maps.event.addListener(this.drawingManager, 'drawingmode_changed', () => {
       if (this.state.selectedOverlay) {
         this.state.selectedOverlay.setEditable(false)
+        this.state.selectedOverlay.setDraggable(false)
       }
       this.setState({selectedOverlay: ''})
     })
@@ -68,12 +69,15 @@ class MapTile extends Component {
   setSelectedShape(selectedShape) {
     if (this.state.selectedOverlay) {
       this.state.selectedOverlay.setEditable(false)
+      this.state.selectedOverlay.setDraggable(false)
     }
 
     selectedShape.setEditable(true);
+    selectedShape.setDraggable(true);
     this.setState({selectedOverlay: selectedShape});
   }
 
+  //save shape to activeOverlays in local state as google map object with overlay ID
   retrieveOverlayCoordsFromMap(newShape) {
     let updatedOverlays = Object.assign([], this.state.activeOverlays)
     let filteredOverlays = updatedOverlays.filter( overlay => {
@@ -81,12 +85,14 @@ class MapTile extends Component {
     })
 
     filteredOverlays.push(newShape)
+
     this.setState({
       activeOverlays: filteredOverlays
     })
 
   }
 
+  //return activeOverlays as google map object with overlay ID
   saveOverlayList () {
     let activeOverlays = this.state.activeOverlays
 
@@ -113,10 +119,12 @@ class MapTile extends Component {
     })
   }
 
+  // print overlays on map and save to local state as google map obj
   drawOverlayCoordsOnMap(overlayArr) {
+    console.log(overlayArr);
     this.initMap()
 
-    overlayArr.forEach( path => {
+    let activeOverlayArr = overlayArr.map( path => {
       let overlay;
 
       if (path.overlayType === 'polygon') {
@@ -126,11 +134,17 @@ class MapTile extends Component {
         let polylineParams = this.state.polylineInputs(path.overlayCoords)
         overlay = new google.maps.Polyline(polylineParams);
       }
-      console.log(overlay);
+
+      overlay.id = path.overlayID
+      overlay.type = path.overlayType
       this.addClickListener(overlay)
-      this.retrieveOverlayCoordsFromMap(overlay)
       overlay.setMap(this.map);
+
+      return overlay
     })
+
+    this.setState({activeOverlays: activeOverlayArr})
+
   }
 
   createMap() {
@@ -139,7 +153,6 @@ class MapTile extends Component {
       center: this.mapCenter(),
       mapTypeId: 'terrain'
     }
-
     return new google.maps.Map(this.refs.mapCanvas, mapOptions)
   }
 

@@ -6,7 +6,6 @@
   margin-left: auto;
   margin-right: auto;
   border-top: 1px solid rgba(204, 204, 204, 0.6);
-
 }
 
 #new-stash-div h2 {
@@ -53,13 +52,11 @@ input {
 
 #stash-description, input {
   width: 85%;
-  // max-width: 210px;
 }
 
-#reset-div, #save-div {
+.btn {
   border: 1px solid $button_outline;
   background: $COLOR_LT_BLUE;
-  width: 150px;
   width: 90px;
   margin: 0 25px;
   text-align: center;
@@ -71,6 +68,6 @@ input {
   margin: 20px 0;
 }
 
-#reset-div:hover, #save-div:hover {
+.btn:hover {
   background-color: $COLOR_LT_ORANGE;
 }

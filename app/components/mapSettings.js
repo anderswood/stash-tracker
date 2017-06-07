@@ -2,8 +2,8 @@
 export const polygonParams = (overlayCoordsArr) => {
   return {
     paths: overlayCoordsArr,
-    draggable: true,
-    editable: true,
+    draggable: false,
+    editable: false,
     fillColor: '#E4801C',
     fillOpacity: 0.2,
     strokeColor: '#E4801C',
@@ -15,8 +15,8 @@ export const polygonParams = (overlayCoordsArr) => {
 export const polylineParams = (overlayCoordsArr) => {
   return {
     path: overlayCoordsArr,
-    draggable: true,
-    editable: true,
+    draggable: false,
+    editable: false,
     geodesic: true,
     strokeColor: '#E4801C',
     strokeOpacity: 0.8,

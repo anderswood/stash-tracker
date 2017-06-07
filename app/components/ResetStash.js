@@ -10,6 +10,7 @@ const ResetStash = ({ resetMap, handleDeactivateStash, resetState }) => {
 
   return (
     <div  id='reset-div'
+          className='btn'
           onClick={ () => handleReset() }>
       <h3>Reset</h3>
     </div>
