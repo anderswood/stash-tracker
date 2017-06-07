@@ -3,14 +3,14 @@ import React from 'react'
 import DeleteStashContainer from '../containers/DeleteStashContainer'
 
 const StashCard =(props) => {
-  const  { activeStash } = props
-  const { drawOverlays, resetMap, stashData } = props
+  const  { activeStash } = props //redux state props
+  const { drawOverlays, resetMap, stashData } = props //react props
   const {
     handleClearOverlays,
     handleOverlayReset,
     handleActivateStash,
     handleDeactivateStash
-  } = props
+  } = props //redux dispatch props
 
   const clickCard = () => {
 

@@ -121,7 +121,6 @@ class MapTile extends Component {
 
   // print overlays on map and save to local state as google map obj
   drawOverlayCoordsOnMap(overlayArr) {
-    console.log(overlayArr);
     this.initMap()
 
     let activeOverlayArr = overlayArr.map( path => {
@@ -144,7 +143,6 @@ class MapTile extends Component {
     })
 
     this.setState({activeOverlays: activeOverlayArr})
-
   }
 
   createMap() {

@@ -3,10 +3,15 @@ import React from 'react'
 const ShowAllButton = (props) => {
 
   const handleShowAll = () => {
-    console.log(props.stashList);
-    props.stashList.forEach(stash => {
-      props.drawOverlays(stash.overlays)
+    let overlaysConsolidatedArr = []
+
+    props.stashList.forEach( stash => {
+      stash.overlays.forEach( overlay => {
+        overlaysConsolidatedArr.push(overlay)
+      })
     })
+
+    props.drawOverlays(overlaysConsolidatedArr)
   }
 
   return (

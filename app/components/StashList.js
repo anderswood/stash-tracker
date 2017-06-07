@@ -14,9 +14,9 @@ const StashList = (props) => {
 
   return (
     <div id='stash-div'>
-      <ShowAllButtonContainer drawOverlays={ props.handleAddOverlays } />
       <h2>Stashes</h2>
       <div id='stash-list'>{ stashListArr }</div>
+      <ShowAllButtonContainer drawOverlays={ props.handleAddOverlays } />
     </div>
 
   )
