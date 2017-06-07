@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 
 import MapTileContainer from '../containers/MapTileContainer'
+import HeaderIcon from './HeaderIcon'
 
 export default class App extends Component {
 
@@ -8,7 +9,7 @@ export default class App extends Component {
     return (
       <div>
         <header>
-          <h1>StashTracker</h1>
+          <h1>Stash<HeaderIcon/>Tracker</h1>
         </header>
         <MapTileContainer  initialCenter={ {
           lng: -105.7208812,

@@ -21,11 +21,6 @@ class MapTile extends Component {
     this.initMap();
   }
 
-  // componentWillUnmount() {
-  //   google.maps.event.clearListeners(map, 'zoom_changed')
-  //   google.maps.event.clearListeners(drawingManager, 'overlaycomplete')
-  // }
-
   render() {
     return (
       <div id='content-div'>
@@ -41,11 +36,19 @@ class MapTile extends Component {
   }
 
   initMap() {
+
     this.map = this.createMap();
     this.drawingManager = new google.maps.drawing.DrawingManager(this.state.drawingManagerProps);
     this.drawingManager.setMap(this.map);
 
     google.maps.event.addListener(this.map, 'zoom_changed', ()=> this.handleZoomChange())
+
+    google.maps.event.addListener(this.drawingManager, 'drawingmode_changed', () => {
+      if (this.state.selectedOverlay) {
+        this.state.selectedOverlay.setEditable(false)
+      }
+      this.setState({selectedOverlay: ''})
+    })
 
     google.maps.event.addListener(this.drawingManager, 'overlaycomplete', (completeEvent) => {
       if (completeEvent.type === 'polygon' || completeEvent.type === 'polyline') {
@@ -55,31 +58,9 @@ class MapTile extends Component {
         newShape.type = completeEvent.type
         newShape.id = Date.now()
 
-        google.maps.event.addListener(newShape, 'click', ()=> {
-          this.setSelectedShape(newShape)
-
-          google.maps.event.addListener(newShape.getPath(), 'insert_at', (e) => {
-            // this.setSelectedShape(newShape)
-            this.retrieveOverlayCoordsFromMap(newShape);
-          })
-
-          google.maps.event.addListener(newShape.getPath(), 'set_at', (e) => {
-            // this.setSelectedShape(newShape)
-            this.retrieveOverlayCoordsFromMap(newShape);
-          })
-
-        })
-
-        google.maps.event.addListener(this.drawingManager, 'drawingmode_changed', () => {
-          if (this.state.selectedOverlay) {
-            this.state.selectedOverlay.setEditable(false)
-          }
-          this.setState({selectedOverlay: ''})
-        })
-
-        this.setSelectedShape(newShape)
-        console.log('end of overlay complete');
+        this.addClickListener(newShape)
         this.retrieveOverlayCoordsFromMap(newShape);
+        this.setSelectedShape(newShape)
       }
     });
   }
@@ -104,18 +85,6 @@ class MapTile extends Component {
       activeOverlays: filteredOverlays
     })
 
-    // let overlayCoords = newShape.getPath().getArray().map((coordPair, i) => {
-    //   return {lat: coordPair.lat(), lng: coordPair.lng(), id: i}
-    // });
-    //
-    // let newOverlay = {
-    //   overlayID: Date.now(),
-    //   overlayType: newShape.type,
-    //   overlayCoords: overlayCoords
-    // }
-
-    // this.props.handleOverlayAdd(newOverlay)
-    // console.log('overlayCoords', newShape);
   }
 
   saveOverlayList () {
@@ -129,8 +98,25 @@ class MapTile extends Component {
     return activeOverlays
   }
 
+  addClickListener(newShape) {
+    google.maps.event.addListener(newShape, 'click', ()=> {
+      this.setSelectedShape(newShape)
+
+      google.maps.event.addListener(newShape.getPath(), 'insert_at', (e) => {
+        this.retrieveOverlayCoordsFromMap(newShape);
+      })
+
+      google.maps.event.addListener(newShape.getPath(), 'set_at', (e) => {
+        this.retrieveOverlayCoordsFromMap(newShape);
+      })
+
+    })
+  }
+
   drawOverlayCoordsOnMap(overlayArr) {
-    overlayArr.forEach(path => {
+    this.initMap()
+
+    overlayArr.forEach( path => {
       let overlay;
 
       if (path.overlayType === 'polygon') {
@@ -140,7 +126,9 @@ class MapTile extends Component {
         let polylineParams = this.state.polylineInputs(path.overlayCoords)
         overlay = new google.maps.Polyline(polylineParams);
       }
-
+      console.log(overlay);
+      this.addClickListener(overlay)
+      this.retrieveOverlayCoordsFromMap(overlay)
       overlay.setMap(this.map);
     })
   }
