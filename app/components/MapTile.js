@@ -30,6 +30,7 @@ class MapTile extends Component {
                               handleResetMap={ this.initMap.bind(this) } />
         </div>
         <StashListContainer handleResetMap={ this.initMap.bind(this) }
+                            handleResetOverlays={ this.resetActiveOverlays.bind(this) }
                             handleAddOverlays={ this.drawOverlayCoordsOnMap.bind(this) }/>
       </div>
     )
@@ -102,6 +103,12 @@ class MapTile extends Component {
     })
 
     return activeOverlays
+  }
+
+  resetActiveOverlays () {
+    this.setState({
+      activeOverlays: []
+    })
   }
 
   addClickListener(newShape) {

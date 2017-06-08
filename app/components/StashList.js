@@ -8,6 +8,7 @@ const StashList = (props) => {
   const stashListArr = props.stashList.map( (stash, i) => {
     return <StashCardContainer  stashData={ stash }
                                 resetMap={ props.handleResetMap }
+                                resetOverlays={ props.handleResetOverlays }
                                 drawOverlays={ props.handleAddOverlays }
                                 key={ i }/>
   })
