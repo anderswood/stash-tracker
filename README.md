@@ -24,7 +24,7 @@ Next Steps:
 ![Screenshot](https://github.com/anderswood/stash-tracker/blob/master/app/images/stash-tracker%20screenshot.png)
 
 # Installation and Setup Instructions
-* Clone repo
+* clone repo
 * run NPM i
 * run NPM start
 

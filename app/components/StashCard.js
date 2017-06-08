@@ -4,7 +4,7 @@ import DeleteStashContainer from '../containers/DeleteStashContainer'
 
 const StashCard =(props) => {
   const  { activeStash } = props //redux state props
-  const { drawOverlays, resetMap, stashData } = props //react props
+  const { resetOverlays, drawOverlays, resetMap, stashData } = props //react props
   const {
     handleClearOverlays,
     handleOverlayReset,
@@ -17,6 +17,7 @@ const StashCard =(props) => {
     if (activeStash === stashData.id) {
       handleDeactivateStash()
       handleClearOverlays()
+      resetOverlays()
       resetMap()
     } else {
       handleActivateStash(stashData.id)
