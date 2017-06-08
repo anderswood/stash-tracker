@@ -98,6 +98,7 @@ class NewStash extends Component {
         </form>
         <div id='reset-save-container'>
           <ResetStashContainer  resetMap={ this.props.handleResetMap }
+                                resetOverlays={ this.props.handleResetOverlays }
                                 resetState={ this.clearState.bind(this) }/>
           <SaveStashContainer getOverlayList={ this.props.sendOverlayList }
                               resetMap={ this.props.handleResetMap }
