@@ -20,6 +20,7 @@ const StashCard =(props) => {
       resetOverlays()
       resetMap()
     } else {
+      resetOverlays()
       handleActivateStash(stashData.id)
       drawOverlays(stashData.overlays)
       handleOverlayReset(stashData.overlays)

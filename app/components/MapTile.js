@@ -27,7 +27,8 @@ class MapTile extends Component {
         <div className='GMap'>
           <div className='GMap-canvas' ref="mapCanvas"></div>
           <NewStashContainer  sendOverlayList={ this.saveOverlayList.bind(this) }
-                              handleResetMap={ this.initMap.bind(this) } />
+                              handleResetMap={ this.initMap.bind(this) }
+                              handleResetOverlays={ this.resetActiveOverlays.bind(this) }/>
         </div>
         <StashListContainer handleResetMap={ this.initMap.bind(this) }
                             handleResetOverlays={ this.resetActiveOverlays.bind(this) }

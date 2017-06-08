@@ -1,10 +1,11 @@
 import React from 'react'
 
-const ResetStash = ({ resetMap, handleDeactivateStash, resetState }) => {
+const ResetStash = ({ resetMap, handleDeactivateStash, resetOverlays, resetState }) => {
 
   const handleReset = () => {
     resetMap()
     handleDeactivateStash()
+    resetOverlays()
     resetState();
   }
 
