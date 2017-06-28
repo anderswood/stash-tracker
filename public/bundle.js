@@ -24592,9 +24592,11 @@
 	          { className: 'GMap' },
 	          _react2.default.createElement('div', { className: 'GMap-canvas', ref: 'mapCanvas' }),
 	          _react2.default.createElement(_NewStashContainer2.default, { sendOverlayList: this.saveOverlayList.bind(this),
-	            handleResetMap: this.initMap.bind(this) })
+	            handleResetMap: this.initMap.bind(this),
+	            handleResetOverlays: this.resetActiveOverlays.bind(this) })
 	        ),
 	        _react2.default.createElement(_StashListContainer2.default, { handleResetMap: this.initMap.bind(this),
+	          handleResetOverlays: this.resetActiveOverlays.bind(this),
 	          handleAddOverlays: this.drawOverlayCoordsOnMap.bind(this) })
 	      );
 	    }
@@ -24676,6 +24678,13 @@
 	      });
 	
 	      return activeOverlays;
+	    }
+	  }, {
+	    key: 'resetActiveOverlays',
+	    value: function resetActiveOverlays() {
+	      this.setState({
+	        activeOverlays: []
+	      });
 	    }
 	  }, {
 	    key: 'addClickListener',
@@ -25067,6 +25076,7 @@
 	          'div',
 	          { id: 'reset-save-container' },
 	          _react2.default.createElement(_ResetStashContainer2.default, { resetMap: this.props.handleResetMap,
+	            resetOverlays: this.props.handleResetOverlays,
 	            resetState: this.clearState.bind(this) }),
 	          _react2.default.createElement(_SaveStashContainer2.default, { getOverlayList: this.props.sendOverlayList,
 	            resetMap: this.props.handleResetMap,
@@ -25261,12 +25271,14 @@
 	var ResetStash = function ResetStash(_ref) {
 	  var resetMap = _ref.resetMap,
 	      handleDeactivateStash = _ref.handleDeactivateStash,
+	      resetOverlays = _ref.resetOverlays,
 	      resetState = _ref.resetState;
 	
 	
 	  var handleReset = function handleReset() {
 	    resetMap();
 	    handleDeactivateStash();
+	    resetOverlays();
 	    resetState();
 	  };
 	
@@ -25342,6 +25354,7 @@
 	  var stashListArr = props.stashList.map(function (stash, i) {
 	    return _react2.default.createElement(_StashCardContainer2.default, { stashData: stash,
 	      resetMap: props.handleResetMap,
+	      resetOverlays: props.handleResetOverlays,
 	      drawOverlays: props.handleAddOverlays,
 	      key: i });
 	  });
@@ -25437,7 +25450,8 @@
 	var StashCard = function StashCard(props) {
 	  var activeStash = props.activeStash; //redux state props
 	
-	  var drawOverlays = props.drawOverlays,
+	  var resetOverlays = props.resetOverlays,
+	      drawOverlays = props.drawOverlays,
 	      resetMap = props.resetMap,
 	      stashData = props.stashData; //react props
 	
@@ -25451,8 +25465,10 @@
 	    if (activeStash === stashData.id) {
 	      handleDeactivateStash();
 	      handleClearOverlays();
+	      resetOverlays();
 	      resetMap();
 	    } else {
+	      resetOverlays();
 	      handleActivateStash(stashData.id);
 	      drawOverlays(stashData.overlays);
 	      handleOverlayReset(stashData.overlays);
@@ -25706,7 +25722,7 @@
 	
 	
 	// module
-	exports.push([module.id, ".GMap {\n  width: 100%;\n  background: #D0DCE7;\n  border-right: 1px solid rgba(204, 204, 204, 0.6); }\n\n.GMap-canvas {\n  height: 350px; }\n\n#new-stash-div {\n  text-align: center;\n  max-width: 640px;\n  margin-left: auto;\n  margin-right: auto;\n  border-top: 1px solid rgba(204, 204, 204, 0.6); }\n\n#new-stash-div h2 {\n  text-align: center; }\n\ninput {\n  border: 1px solid #CCC; }\n\n.form-row {\n  display: flex;\n  align-items: center; }\n\n.form-left {\n  width: 40%; }\n\n.form-right {\n  width: 60%; }\n\n.form-left {\n  text-align: right; }\n\n.form-right {\n  text-align: left;\n  padding-left: 10px; }\n\n.form-description {\n  display: flex; }\n\n#stash-description {\n  margin-top: 8px;\n  width: 200px;\n  height: 95px;\n  resize: none;\n  border: 1px solid #CCC; }\n\n#stash-description, input {\n  width: 85%; }\n\n.btn {\n  border: 1px solid #CCC;\n  background: #82A1C0;\n  width: 90px;\n  margin: 0 25px;\n  text-align: center; }\n\n#show-all-btn {\n  background: #D0DCE7;\n  margin: 0 auto;\n  margin-top: 15px; }\n\n.btn:hover, #show-all-btn:hover {\n  background-color: #E0A772; }\n\n#reset-save-container {\n  display: flex;\n  justify-content: space-between;\n  margin: 20px 0; }\n\n.card {\n  background-color: #D0DCE7;\n  border-radius: 3px;\n  margin: 5px;\n  box-shadow: 0 0 2px #896643;\n  position: relative;\n  height: 66px; }\n\n.card:hover {\n  background-color: #E0A772; }\n\n.active-card {\n  background-color: #E4801C; }\n\n.card h3, .card h4 {\n  width: 85%;\n  margin-left: auto;\n  margin-right: auto; }\n\n.delete-stash {\n  position: absolute;\n  top: 2px;\n  right: 2px; }\n\n.delete-stash:hover {\n  fill: #000; }\n\n#stash-div {\n  width: 250px;\n  text-align: center; }\n\n#stash-list {\n  display: flex;\n  flex-direction: column; }\n\nh1, h2, h3, h4 {\n  color: #FFF; }\n\nh1 {\n  margin: 0;\n  padding: 15px; }\n\nh2 {\n  margin: 15px auto 12px auto; }\n\nh3 {\n  margin: 5px 0; }\n\nh4 {\n  margin: 6px 0; }\n\nheader {\n  background: #003E7E; }\n\n#content-div {\n  display: flex;\n  background: #82A1C0;\n  border: 1px solid rgba(204, 204, 204, 0.6); }\n\n#header-icon {\n  fill: #E4801C;\n  margin-left: 5px;\n  margin-right: 5px; }\n\nheader h1 {\n  display: flex;\n  align-items: flex-start; }\n", ""]);
+	exports.push([module.id, ".GMap {\n  width: 100%;\n  background: #D0DCE7;\n  border-right: 1px solid rgba(204, 204, 204, 0.6); }\n\n.GMap-canvas {\n  height: 350px; }\n\n#new-stash-div {\n  text-align: center;\n  max-width: 640px;\n  margin-left: auto;\n  margin-right: auto;\n  border-top: 1px solid rgba(204, 204, 204, 0.6); }\n\n#new-stash-div h2 {\n  text-align: center; }\n\ninput {\n  border: 1px solid #CCC; }\n\n.form-row {\n  display: flex;\n  align-items: center; }\n\n.form-left {\n  width: 40%; }\n\n.form-right {\n  width: 60%; }\n\n.form-left {\n  text-align: right; }\n\n.form-right {\n  text-align: left;\n  padding-left: 10px; }\n\n.form-description {\n  display: flex; }\n\n#stash-description {\n  margin-top: 8px;\n  width: 200px;\n  height: 95px;\n  resize: none;\n  border: 1px solid #CCC; }\n\n#stash-description, input {\n  width: 85%; }\n\n.btn {\n  border: 1px solid #CCC;\n  background: #82A1C0;\n  width: 90px;\n  margin: 0 25px;\n  text-align: center; }\n\n#show-all-btn {\n  background: #D0DCE7;\n  margin: 0 auto;\n  margin-top: 15px; }\n\n.btn:hover, #show-all-btn:hover {\n  background-color: #E0A772; }\n\n#reset-save-container {\n  display: flex;\n  justify-content: space-between;\n  margin: 20px 0; }\n\n.card {\n  background-color: #D0DCE7;\n  border-radius: 3px;\n  margin: 5px;\n  box-shadow: 0 0 2px #896643;\n  position: relative;\n  height: 66px; }\n\n.card:hover {\n  background-color: #E0A772; }\n\n.active-card {\n  background-color: #E4801C; }\n\n.card h3, .card h4 {\n  width: 85%;\n  margin-left: auto;\n  margin-right: auto; }\n\n.delete-stash {\n  position: absolute;\n  top: 2px;\n  right: 2px; }\n\n.delete-stash:hover {\n  fill: #000; }\n\n#stash-div {\n  width: 250px;\n  text-align: center; }\n\n#stash-list {\n  display: flex;\n  flex-direction: column; }\n\nh1, h2, h3, h4 {\n  color: #000;\n  color: #FFF; }\n\nh1 {\n  margin: 0;\n  padding: 15px; }\n\nh2 {\n  margin: 15px auto 12px auto; }\n\nh3 {\n  margin: 5px 0; }\n\nh4 {\n  margin: 6px 0; }\n\nheader {\n  background: #003E7E; }\n\n#content-div {\n  display: flex;\n  background: #82A1C0;\n  border: 1px solid rgba(204, 204, 204, 0.6); }\n\n#header-icon {\n  fill: #E4801C;\n  margin-left: 5px;\n  margin-right: 5px; }\n\nheader h1 {\n  display: flex;\n  align-items: flex-start; }\n", ""]);
 	
 	// exports
 
