@@ -24592,9 +24592,11 @@
 	          { className: 'GMap' },
 	          _react2.default.createElement('div', { className: 'GMap-canvas', ref: 'mapCanvas' }),
 	          _react2.default.createElement(_NewStashContainer2.default, { sendOverlayList: this.saveOverlayList.bind(this),
-	            handleResetMap: this.initMap.bind(this) })
+	            handleResetMap: this.initMap.bind(this),
+	            handleResetOverlays: this.resetActiveOverlays.bind(this) })
 	        ),
 	        _react2.default.createElement(_StashListContainer2.default, { handleResetMap: this.initMap.bind(this),
+	          handleResetOverlays: this.resetActiveOverlays.bind(this),
 	          handleAddOverlays: this.drawOverlayCoordsOnMap.bind(this) })
 	      );
 	    }
@@ -24676,6 +24678,13 @@
 	      });
 	
 	      return activeOverlays;
+	    }
+	  }, {
+	    key: 'resetActiveOverlays',
+	    value: function resetActiveOverlays() {
+	      this.setState({
+	        activeOverlays: []
+	      });
 	    }
 	  }, {
 	    key: 'addClickListener',
@@ -25067,6 +25076,7 @@
 	          'div',
 	          { id: 'reset-save-container' },
 	          _react2.default.createElement(_ResetStashContainer2.default, { resetMap: this.props.handleResetMap,
+	            resetOverlays: this.props.handleResetOverlays,
 	            resetState: this.clearState.bind(this) }),
 	          _react2.default.createElement(_SaveStashContainer2.default, { getOverlayList: this.props.sendOverlayList,
 	            resetMap: this.props.handleResetMap,
@@ -25261,12 +25271,14 @@
 	var ResetStash = function ResetStash(_ref) {
 	  var resetMap = _ref.resetMap,
 	      handleDeactivateStash = _ref.handleDeactivateStash,
+	      resetOverlays = _ref.resetOverlays,
 	      resetState = _ref.resetState;
 	
 	
 	  var handleReset = function handleReset() {
 	    resetMap();
 	    handleDeactivateStash();
+	    resetOverlays();
 	    resetState();
 	  };
 	
@@ -25342,6 +25354,7 @@
 	  var stashListArr = props.stashList.map(function (stash, i) {
 	    return _react2.default.createElement(_StashCardContainer2.default, { stashData: stash,
 	      resetMap: props.handleResetMap,
+	      resetOverlays: props.handleResetOverlays,
 	      drawOverlays: props.handleAddOverlays,
 	      key: i });
 	  });
@@ -25437,7 +25450,8 @@
 	var StashCard = function StashCard(props) {
 	  var activeStash = props.activeStash; //redux state props
 	
-	  var drawOverlays = props.drawOverlays,
+	  var resetOverlays = props.resetOverlays,
+	      drawOverlays = props.drawOverlays,
 	      resetMap = props.resetMap,
 	      stashData = props.stashData; //react props
 	
@@ -25451,8 +25465,10 @@
 	    if (activeStash === stashData.id) {
 	      handleDeactivateStash();
 	      handleClearOverlays();
+	      resetOverlays();
 	      resetMap();
 	    } else {
+	      resetOverlays();
 	      handleActivateStash(stashData.id);
 	      drawOverlays(stashData.overlays);
 	      handleOverlayReset(stashData.overlays);
